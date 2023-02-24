@@ -60,3 +60,11 @@ main {
   margin: auto;
   display: block;
 }
+
+.img-thumbnail {
+  height: 80px;
+}
+
+.fa-shopping-cart {
+  color: #ffff00;
+}
