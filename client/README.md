@@ -16,3 +16,9 @@ Install bootstrap
 npm install react-bootstrap bootstrap //Add --force if error
 npm install react-router-bootstrap //Add --force if error
 ```
+
+Install helmet-async
+
+```bash
+npm install react-helmet-async
+```
