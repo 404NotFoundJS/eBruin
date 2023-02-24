@@ -1,12 +1,19 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const connectDB = require("./config/db");
+import express from 'express';
+import data from './data.js';
+//const express = require('express');
+//const bodyParser = require('body-parser');
+//const connectDB = require('./config/db');
+//const { default: data } = require('./data.js');
 
 const app = express();
 
-connectDB();
+//connectDB();
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 
-app.get("/", (req, res) => res.send("Hello world!"));
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.get('/api/products', (req, res) => {
+  res.send(data.products);
+});
+app.listen(port, () => {
+  console.log(`Server running on port http://localhost:${port}`);
+});
