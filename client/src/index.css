@@ -68,3 +68,7 @@ main {
 .fa-shopping-cart {
   color: #ffff00;
 }
+
+.container {
+  max-width: 600px;
+}
