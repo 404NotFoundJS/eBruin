@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2559e10c-0b75-41cb-9d4b-b9e43c12e4a6" name="Changes" comment="products stored in DB">
-      <change afterPath="$PROJECT_DIR$/server/models/userModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/route/userRoutes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/utils.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="2559e10c-0b75-41cb-9d4b-b9e43c12e4a6" name="Changes" comment="signin backend completed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/server/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/config/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/config/db.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/data.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/data.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/route/seedRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/route/seedRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/screens/SigninScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/screens/SigninScreen.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +75,7 @@
       <workItem from="1677318651628" duration="1128000" />
       <workItem from="1677319930499" duration="156000" />
       <workItem from="1677364531857" duration="378000" />
-      <workItem from="1677365033888" duration="6163000" />
+      <workItem from="1677365033888" duration="7530000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented signin page">
       <created>1677294848974</created>
@@ -116,7 +105,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677304686718</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="signin backend completed">
+      <created>1677372424650</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1677372424650</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -137,6 +133,7 @@
     <MESSAGE value="Implemented signin page" />
     <MESSAGE value="Connected to MongoDB on server side" />
     <MESSAGE value="products stored in DB" />
-    <option name="LAST_COMMIT_MESSAGE" value="products stored in DB" />
+    <MESSAGE value="signin backend completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="signin backend completed" />
   </component>
 </project>
