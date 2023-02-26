@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2559e10c-0b75-41cb-9d4b-b9e43c12e4a6" name="Changes" comment="Connected to MongoDB on server side">
-      <change afterPath="$PROJECT_DIR$/server/models/productModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/route/productRoutes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/route/seedRoutes.js" afterDir="false" />
+    <list default="true" id="2559e10c-0b75-41cb-9d4b-b9e43c12e4a6" name="Changes" comment="products stored in DB">
+      <change afterPath="$PROJECT_DIR$/server/models/userModel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/route/userRoutes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/server/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/config/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/config/db.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/data.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/data.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/route/seedRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/route/seedRoutes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,9 +45,15 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -65,7 +78,15 @@
       <workItem from="1677298047642" duration="1637000" />
       <workItem from="1677301499390" duration="13000" />
       <workItem from="1677301537697" duration="35000" />
-      <workItem from="1677301686015" duration="2660000" />
+      <workItem from="1677301686015" duration="5318000" />
+      <workItem from="1677311760391" duration="834000" />
+      <workItem from="1677312609613" duration="78000" />
+      <workItem from="1677312771897" duration="2159000" />
+      <workItem from="1677315347695" duration="1288000" />
+      <workItem from="1677318651628" duration="1128000" />
+      <workItem from="1677319930499" duration="156000" />
+      <workItem from="1677364531857" duration="378000" />
+      <workItem from="1677365033888" duration="6163000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented signin page">
       <created>1677294848974</created>
@@ -88,7 +109,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677298190402</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="products stored in DB">
+      <created>1677304686718</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1677304686718</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -108,6 +136,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Implemented signin page" />
     <MESSAGE value="Connected to MongoDB on server side" />
-    <option name="LAST_COMMIT_MESSAGE" value="Connected to MongoDB on server side" />
+    <MESSAGE value="products stored in DB" />
+    <option name="LAST_COMMIT_MESSAGE" value="products stored in DB" />
   </component>
 </project>
