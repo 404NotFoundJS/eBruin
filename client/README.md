@@ -22,3 +22,7 @@ Install helmet-async
 ```bash
 npm install react-helmet-async
 ```
+
+```bash
+npm install react-toastify --force
+```

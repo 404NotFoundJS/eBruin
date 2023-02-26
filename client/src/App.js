@@ -10,13 +10,23 @@ import { useContext } from 'react';
 import { Store } from './Store';
 import CartScreen from './screens/CartScreen';
 import SigninScreen from "./screens/SigninScreen";
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
-  const { state } = useContext(Store);
-  const { cart } = state;
+  const { state,dispatch: ctxDispatch} = useContext(Store);
+  const { cart , userInfo} = state;
+
+  const signoutHandler = () => {
+    ctxDispatch({ type: 'USER_SIGNOUT' });
+    localStorage.removeItem('userInfo');
+  };
   return (
     <BrowserRouter>
       <div className="d-flex flex-column site-container">
+        <ToastContainer position="bottom-center" limit={1} />
         <header>
           <Navbar className="navbar navbar-custom">
             <Container>
@@ -32,6 +42,25 @@ function App() {
                     </Badge>
                   )}
                 </Link>
+                {userInfo ? (
+                    <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+                      <LinkContainer to="/profile">
+                        <NavDropdown.Item>User Profile</NavDropdown.Item>
+                      </LinkContainer>
+                      <NavDropdown.Divider />
+                      <Link
+                          className="dropdown-item"
+                          to="#signout"
+                          onClick={signoutHandler}
+                      >
+                        Sign Out
+                      </Link>
+                    </NavDropdown>
+                ) : (
+                    <Link className="nav-link" to="/signin">
+                      Sign In
+                    </Link>
+                )}
               </Nav>
             </Container>
           </Navbar>
@@ -39,7 +68,7 @@ function App() {
         <main>
           <Container className="mt-3">
             <Routes>
-              <Route path="/" element={<SigninScreen />} />
+              <Route path="/" element={<HomeScreen />} />
               <Route path="/home" element={<HomeScreen />} />
               <Route path="/product/:slug" element={<ProductScreen />} />
               <Route path="/cart" element={<CartScreen />} />

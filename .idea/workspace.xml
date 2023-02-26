@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2559e10c-0b75-41cb-9d4b-b9e43c12e4a6" name="Changes" comment="signin backend completed">
+    <list default="true" id="2559e10c-0b75-41cb-9d4b-b9e43c12e4a6" name="Changes" comment="signin front end connected to backend">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/client/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Store.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/Store.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/screens/SigninScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/screens/SigninScreen.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,7 +80,7 @@
       <workItem from="1677318651628" duration="1128000" />
       <workItem from="1677319930499" duration="156000" />
       <workItem from="1677364531857" duration="378000" />
-      <workItem from="1677365033888" duration="7530000" />
+      <workItem from="1677365033888" duration="10170000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented signin page">
       <created>1677294848974</created>
@@ -112,7 +117,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677372424650</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="signin front end connected to backend">
+      <created>1677373642828</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1677373642828</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,6 +146,7 @@
     <MESSAGE value="Connected to MongoDB on server side" />
     <MESSAGE value="products stored in DB" />
     <MESSAGE value="signin backend completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="signin backend completed" />
+    <MESSAGE value="signin front end connected to backend" />
+    <option name="LAST_COMMIT_MESSAGE" value="signin front end connected to backend" />
   </component>
 </project>
