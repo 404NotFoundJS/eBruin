@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2559e10c-0b75-41cb-9d4b-b9e43c12e4a6" name="Changes" comment="Finished signin and redireact and sign out">
-      <change afterPath="$PROJECT_DIR$/client/src/screens/SignupScreen.js" afterDir="false" />
+    <list default="true" id="2559e10c-0b75-41cb-9d4b-b9e43c12e4a6" name="Changes" comment="Created signup page and connected to database">
+      <change afterPath="$PROJECT_DIR$/client/setupProxy.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/route/userRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/route/userRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/data.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/screens/HomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/screens/HomeScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/data.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/data.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/productModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/productModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/route/productRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/route/productRoutes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +84,15 @@
       <workItem from="1677318651628" duration="1128000" />
       <workItem from="1677319930499" duration="156000" />
       <workItem from="1677364531857" duration="378000" />
-      <workItem from="1677365033888" duration="11279000" />
+      <workItem from="1677365033888" duration="12433000" />
+      <workItem from="1677387611819" duration="2440000" />
+      <workItem from="1677393195562" duration="2021000" />
+      <workItem from="1677395496523" duration="674000" />
+      <workItem from="1677396245012" duration="29000" />
+      <workItem from="1677396397042" duration="38000" />
+      <workItem from="1677396478611" duration="487000" />
+      <workItem from="1677398455398" duration="6000" />
+      <workItem from="1677398465608" duration="1422000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented signin page">
       <created>1677294848974</created>
@@ -127,7 +143,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677376275300</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Created signup page and connected to database">
+      <created>1677386426166</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1677386426166</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -138,7 +161,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -151,7 +180,8 @@
     <MESSAGE value="signin backend completed" />
     <MESSAGE value="signin front end connected to backend" />
     <MESSAGE value="Finished signin and redireact and sign out" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished signin and redireact and sign out" />
+    <MESSAGE value="Created signup page and connected to database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created signup page and connected to database" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -159,7 +189,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/client/src/screens/SigninScreen.js</url>
           <line>47</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

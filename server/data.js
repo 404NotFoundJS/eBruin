@@ -16,7 +16,7 @@ const data = {
   ],
   products: [
     {
-      name: 'First Product',
+      name: 'First ',
       slug: '1st-p',
       category: '1st category',
       image: '/images/p1.jpeg', // 679px * 829px
@@ -28,7 +28,7 @@ const data = {
       description: 'This is the Description for the 1st product',
     },
     {
-      name: 'Second Product',
+      name: 'Second',
       slug: '2nd-p',
       category: '2nd category',
       image: '/images/p2.jpeg',
@@ -40,7 +40,7 @@ const data = {
       description: 'This is the Description for the 2nd product',
     },
     {
-      name: 'Third Product',
+      name: 'Third',
       slug: '3rd-p',
       category: '3rd category',
       image: '/images/p3.jpeg',
@@ -52,7 +52,7 @@ const data = {
       description: 'This is the Description for the 3rd product',
     },
     {
-      name: 'Fourth Product',
+      name: 'Fourth',
       slug: '4th-p',
       category: '4th category',
       image: '/images/p4.jpeg',

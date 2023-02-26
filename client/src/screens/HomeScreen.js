@@ -1,4 +1,4 @@
-//import data from '../data';
+
 import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 import logger from 'use-reducer-logger';
