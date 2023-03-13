@@ -18,6 +18,7 @@ import OrderInfoScreen from './screens/OrderInfoScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
 import PendingScreen from './screens/PendingScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -55,6 +56,9 @@ function App() {
                     <LinkContainer to="/pending">
                       <NavDropdown.Item>Pending Order</NavDropdown.Item>
                     </LinkContainer>
+                    <LinkContainer to="/orderhistory">
+                      <NavDropdown.Item>Order History</NavDropdown.Item>
+                    </LinkContainer>
                     <NavDropdown.Divider />
                     <Link
                       className="dropdown-item"
@@ -86,6 +90,7 @@ function App() {
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
               <Route path="/orders/:id" element={<OrderScreen />} />
               <Route path="/pending" element={<PendingScreen />} />
+              <Route path="/orderhistory" element={<OrderHistoryScreen />} />
             </Routes>
           </Container>
         </main>
