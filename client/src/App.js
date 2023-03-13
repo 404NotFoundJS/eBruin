@@ -17,6 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import OrderInfoScreen from './screens/OrderInfoScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
+import PendingScreen from './screens/PendingScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -51,6 +52,9 @@ function App() {
                     <LinkContainer to="/profile">
                       <NavDropdown.Item>User Profile Update</NavDropdown.Item>
                     </LinkContainer>
+                    <LinkContainer to="/pending">
+                      <NavDropdown.Item>Pending Order</NavDropdown.Item>
+                    </LinkContainer>
                     <NavDropdown.Divider />
                     <Link
                       className="dropdown-item"
@@ -81,6 +85,7 @@ function App() {
               <Route path="/OrderInfo" element={<OrderInfoScreen />} />
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
               <Route path="/orders/:id" element={<OrderScreen />} />
+              <Route path="/pending" element={<PendingScreen />} />
             </Routes>
           </Container>
         </main>
