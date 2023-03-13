@@ -46,7 +46,7 @@ export default function OrderInfoScreen() {
         zipCode,
       })
     );
-    navigate('/orderConfirmation');
+    navigate('/placeorder');
   };
   return (
     <div>
