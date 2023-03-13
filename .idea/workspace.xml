@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2559e10c-0b75-41cb-9d4b-b9e43c12e4a6" name="Changes" comment="Fixed error">
+    <list default="true" id="2559e10c-0b75-41cb-9d4b-b9e43c12e4a6" name="Changes" comment="Fixed signout error">
+      <change afterPath="$PROJECT_DIR$/client/src/screens/UploadScreen" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/data.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +85,15 @@
       <workItem from="1677396478611" duration="487000" />
       <workItem from="1677398455398" duration="6000" />
       <workItem from="1677398465608" duration="3012000" />
-      <workItem from="1677895983362" duration="316000" />
+      <workItem from="1677895983362" duration="1154000" />
+      <workItem from="1678403874051" duration="4716000" />
+      <workItem from="1678436660424" duration="80000" />
+      <workItem from="1678504111518" duration="885000" />
+      <workItem from="1678505105765" duration="556000" />
+      <workItem from="1678519584203" duration="10000" />
+      <workItem from="1678519697387" duration="2691000" />
+      <workItem from="1678597077926" duration="954000" />
+      <workItem from="1678656247088" duration="168000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented signin page">
       <created>1677294848974</created>
@@ -148,11 +158,21 @@
       <option name="project" value="LOCAL" />
       <updated>1677399960794</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Fixed signout error">
+      <created>1677896506975</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1677896506975</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="SHOW_OTHER_BRANCHES" value="true" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -170,6 +190,21 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Implemented signin page" />
@@ -180,7 +215,8 @@
     <MESSAGE value="Finished signin and redireact and sign out" />
     <MESSAGE value="Created signup page and connected to database" />
     <MESSAGE value="Fixed error" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed error" />
+    <MESSAGE value="Fixed signout error" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed signout error" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
