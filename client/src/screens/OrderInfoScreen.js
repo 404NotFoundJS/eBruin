@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import { Store } from '../Store';
 import CheckoutSteps from '../components/CheckoutSteps';
+import { Store } from '../Store';
 
 export default function OrderInfoScreen() {
   const navigate = useNavigate();
