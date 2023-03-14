@@ -31,9 +31,9 @@ function App() {
       <div className="d-flex flex-column site-container">
         <ToastContainer position="bottom-center" limit={1} />
         <header>
-          <Navbar expand="lg" className="navbar navbar-custom">
-            <Container fluid>
-              <Navbar.Brand href="#home">eBruin</Navbar.Brand>
+          <Navbar expand="xxl" className="navbar navbar-custom">
+            <Container fluid="xxl">
+              <Navbar.Brand href="/">eBruin</Navbar.Brand>
               <Nav className="ms-auto">
                 <Link to="/cart" className="nav-link">
                   <i className="fas fa-shopping-cart fa-lg"></i>
@@ -44,23 +44,27 @@ function App() {
                   )}
                 </Link>
                 {userInfo ? (
-                  <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
-                    <LinkContainer to="/myProfile">
-                      <NavDropdown.Item>My Profile</NavDropdown.Item>
-                    </LinkContainer>
+                  <NavDropdown
+                    title={userInfo.name}
+                    id="basic-nav-dropdown"
+                    className="custom-dropdown"
+                  >
+                    <NavDropdown.Item href="/myProfile">
+                      My Profile
+                    </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <Link
+                    <NavDropdown.Item
+                      href="/"
                       className="dropdown-item"
-                      to="/"
                       onClick={signoutHandler}
                     >
                       Sign Out
-                    </Link>
+                    </NavDropdown.Item>
                   </NavDropdown>
                 ) : (
-                  <Link className="nav-link" to="/signin">
+                  <Nav.Link className="nav-link" href="/signin">
                     Sign In
-                  </Link>
+                  </Nav.Link>
                 )}
               </Nav>
             </Container>
