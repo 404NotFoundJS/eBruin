@@ -30,5 +30,8 @@ npm install bcryptjs
 npm install express-async-handler
 npm install jsonwebtoken
 
-
-
+If website not working:
+create .env file in server folder
+add the following line:
+JWT_SECRET=somethingsecret
+```

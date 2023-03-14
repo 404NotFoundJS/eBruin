@@ -2,13 +2,22 @@ import { useContext } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
+import { useContext } from 'react';
+import { Store } from './Store';
+import CartScreen from './screens/CartScreen';
+import SigninScreen from './screens/SigninScreen';
+import SignupScreen from './screens/SignupScreen';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { LinkContainer } from 'react-router-bootstrap';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import OrderInfoScreen from './screens/OrderInfoScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import OrderScreen from './screens/OrderScreen';
+import PendingScreen from './screens/PendingScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import CartScreen from './screens/CartScreen';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
@@ -25,6 +34,7 @@ function App() {
     ctxDispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');
     localStorage.removeItem('cart');
+    localStorage.removeItem('orderInformation');
   };
   return (
     <BrowserRouter>
@@ -51,6 +61,15 @@ function App() {
                   >
                     <NavDropdown.Item href="/myProfile">
                       My Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="editProfile">
+                      User Profile Update
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/pending">
+                      Pending Order
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/orderhistory">
+                      Order History
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item
@@ -80,6 +99,11 @@ function App() {
               <Route path="/signin" element={<SigninScreen />} />
               <Route path="/signup" element={<SignupScreen />} />
               <Route path="/myProfile" element={<ProfileScreen />} />
+              <Route path="/OrderInfo" element={<OrderInfoScreen />} />
+              <Route path="/placeorder" element={<PlaceOrderScreen />} />
+              <Route path="/orders/:id" element={<OrderScreen />} />
+              <Route path="/pending" element={<PendingScreen />} />
+              <Route path="/orderhistory" element={<OrderHistoryScreen />} />
             </Routes>
           </Container>
         </main>

@@ -34,7 +34,7 @@ export default function CartScreen() {
   };
 
   const checkoutHandler = () => {
-    navigate('/signin?redirect=/shipping');
+    navigate('/signin?redirect=/OrderInfo');
   };
 
   return (
@@ -111,7 +111,7 @@ export default function CartScreen() {
                       onClick={checkoutHandler}
                       disabled={cartItems.length === 0}
                     >
-                      Go to Checkout
+                      Checkout
                     </Button>
                   </div>
                 </ListGroup.Item>
