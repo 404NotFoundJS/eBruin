@@ -1,11 +1,11 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import { Helmet } from 'react-helmet-async';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import { Store } from '../Store';
 import { getError } from '../utils';
 
 const reducer = (state, action) => {
@@ -22,8 +22,7 @@ const reducer = (state, action) => {
 };
 
 export default function OrderHistoryScreen() {
-  const { state } = useContext(Store);
-  const { userInfo } = state;
+  const userInfo = useSelector((state) => state.user.userInfo);
   const navigate = useNavigate();
 
   const [{ loading, error, orders }, dispatch] = useReducer(reducer, {

@@ -1,16 +1,18 @@
-import { useContext } from 'react';
 import Badge from 'react-bootstrap/Badge';
+import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CartScreen from './screens/CartScreen';
 import HomeScreen from './screens/HomeScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
-import OrderInfoScreen from './screens/OrderInfoScreen';
+import OrderConfirmScreen from './screens/OrderConfirmScreen';
 import OrderScreen from './screens/OrderScreen';
 import PendingScreen from './screens/PendingScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
@@ -18,17 +20,18 @@ import ProductScreen from './screens/ProductScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import SigninScreen from './screens/SigninScreen';
 import SignupScreen from './screens/SignupScreen';
-import { Store } from './Store';
 
 function App() {
-  const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart, userInfo } = state;
+  const cart = useSelector((state) => state.cart);
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const dispatch = useDispatch();
 
+  const searchHandler = () => {};
   const signoutHandler = () => {
-    ctxDispatch({ type: 'USER_SIGNOUT' });
+    dispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');
-    localStorage.removeItem('cart');
-    localStorage.removeItem('orderInformation');
+    localStorage.removeItem('cartItems');
+    localStorage.removeItem('orderInfo');
   };
   return (
     <BrowserRouter>
@@ -38,12 +41,26 @@ function App() {
           <Navbar expand="xxl" className="navbar navbar-custom">
             <Container fluid="xxl">
               <Navbar.Brand href="/">eBruin</Navbar.Brand>
+              <Form className="ms-auto d-flex">
+                <Form.Control
+                  type="search"
+                  placeholder="Search Listings"
+                  className="me-2"
+                  aria-label="Search"
+                />
+                <Button
+                  variant="outline-success"
+                  onClick={() => searchHandler()}
+                >
+                  Search
+                </Button>
+              </Form>
               <Nav className="ms-auto">
                 <Link to="/cart" className="nav-link">
                   <i className="fas fa-shopping-cart fa-lg"></i>
                   {cart.cartItems.length > 0 && (
                     <Badge pill bg="danger">
-                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                      {cart.cartItems.reduce((a, c) => a + c.qty, 0)}
                     </Badge>
                   )}
                 </Link>
@@ -88,12 +105,12 @@ function App() {
             <Routes>
               <Route path="/" element={<HomeScreen />} />
               <Route path="/home" element={<HomeScreen />} />
-              <Route path="/product/:slug" element={<ProductScreen />} />
+              <Route path="/product/:id" element={<ProductScreen />} />
               <Route path="/cart" element={<CartScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
               <Route path="/signup" element={<SignupScreen />} />
               <Route path="/myProfile" element={<ProfileScreen />} />
-              <Route path="/OrderInfo" element={<OrderInfoScreen />} />
+              <Route path="/OrderInfo" element={<OrderConfirmScreen />} />
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
               <Route path="/orders/:id" element={<OrderScreen />} />
               <Route path="/pending" element={<PendingScreen />} />

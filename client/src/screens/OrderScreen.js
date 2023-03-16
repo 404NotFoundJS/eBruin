@@ -8,7 +8,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import { Store } from '../Store';
+import store from '../Store';
 import { getError } from '../utils';
 
 function reducer(state, action) {
@@ -25,7 +25,7 @@ function reducer(state, action) {
 }
 
 export default function OrderScreen() {
-  const { state } = useContext(Store);
+  const { state } = useContext(store);
   const { userInfo } = state;
   const navigate = useNavigate();
   const params = useParams();
@@ -74,16 +74,16 @@ export default function OrderScreen() {
               <Card.Title>Order Information</Card.Title>
               <Card.Text>
                 <strong>Name:</strong>
-                {order.orderInformation.fullName}
+                {order.orderInfo.fullName}
                 <br />
                 <strong>Phone Number:</strong>
-                {order.orderInformation.phoneNumber}
+                {order.orderInfo.phoneNumber}
                 <br />
                 <strong>Email:</strong>
-                {order.orderInformation.contactEmail}
+                {order.orderInfo.contactEmail}
                 <br />
                 <strong>Zip Code:</strong>
-                {order.orderInformation.zipCode}
+                {order.orderInfo.zipCode}
                 <br />
               </Card.Text>
               {order.isDelivered ? (

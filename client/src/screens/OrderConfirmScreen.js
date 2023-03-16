@@ -1,26 +1,23 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Helmet } from 'react-helmet-async';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { createOrder } from '../actions/orderActions';
 import CheckoutSteps from '../components/CheckoutSteps';
-import { Store } from '../Store';
 
-export default function OrderInfoScreen() {
+export default function OrderConfirmScreen() {
   const navigate = useNavigate();
-  const { state, dispatch: ctxDispatch } = useContext(Store);
-  const {
-    userInfo,
-    cart: { orderInformation },
-  } = state;
-  const [fullName, setFullName] = useState(orderInformation.fullName || '');
-  const [phoneNumber, setPhoneNumber] = useState(
-    orderInformation.phoneNumber || ''
-  );
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.userSignin.userInfo);
+  const orderInfo = useSelector((state) => state.cart.orderInfo);
+  const [fullName, setFullName] = useState(orderInfo.fullName || '');
+  const [phoneNumber, setPhoneNumber] = useState(orderInfo.phoneNumber || '');
   const [contactEmail, setContactEmail] = useState(
-    orderInformation.contactEmail || ''
+    orderInfo.contactEmail || ''
   );
-  const [zipCode, setZipCode] = useState(orderInformation.zipCode || '');
+  const [zipCode, setZipCode] = useState(orderInfo.zipCode || '');
   useEffect(() => {
     if (!userInfo) {
       navigate('/signin?redirect=/OrderInfo');
@@ -28,24 +25,6 @@ export default function OrderInfoScreen() {
   }, [userInfo, navigate]);
   const submitHandler = (e) => {
     e.preventDefault();
-    ctxDispatch({
-      type: 'SAVE_ORDER_INFORMATION',
-      payload: {
-        fullName,
-        phoneNumber,
-        contactEmail,
-        zipCode,
-      },
-    });
-    localStorage.setItem(
-      'orderInformation',
-      JSON.stringify({
-        fullName,
-        phoneNumber,
-        contactEmail,
-        zipCode,
-      })
-    );
     navigate('/placeorder');
   };
   return (
@@ -91,7 +70,7 @@ export default function OrderInfoScreen() {
           </Form.Group>
           <div className="mb-3">
             <Button variant="primary" type="submit">
-              Continue
+              Confirm Order
             </Button>
           </div>
         </Form>

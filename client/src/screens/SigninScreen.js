@@ -1,38 +1,28 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import { Helmet } from 'react-helmet-async';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { Store } from '../Store';
-import { getError } from '../utils';
+import LoadingBox from '../components/LoadingBox';
 
-import Axios from 'axios';
+import { signin } from '../actions/userActions';
 
 export default function SigninScreen() {
   const { search } = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const redireactURL = new URLSearchParams(search).get('redirect');
   const redirect = redireactURL ? redireactURL : '/';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { userInfo } = state;
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo, loading } = userSignin;
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    try {
-      const { data } = await Axios.post('/api/users/signin', {
-        email,
-        password,
-      });
-      ctxDispatch({ type: 'USER_SIGNIN', payload: data });
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      navigate(redirect || '/');
-    } catch (err) {
-      toast.error(getError(err));
-    }
+    dispatch(signin(email, password));
   };
 
   useEffect(() => {
@@ -66,6 +56,7 @@ export default function SigninScreen() {
           </Form.Group>
           <div className="mb-3">
             <Button type="submit">Sign In</Button>
+            {loading && <LoadingBox />}
           </div>
           <div className="mb-3">
             New customer?{' '}

@@ -1,38 +1,28 @@
-import Axios from 'axios';
-import React, { useContext, useReducer } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Row from 'react-bootstrap/Row';
 import { Helmet } from 'react-helmet-async';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { createOrder } from '../actions/orderActions';
 import CheckoutSteps from '../components/CheckoutSteps';
 import LoadingBox from '../components/LoadingBox';
-import { Store } from '../Store';
-import { getError } from '../utils';
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'CREATE_REQUEST':
-      return { ...state, loading: true };
-    case 'CREATE_SUCCESS':
-      return { ...state, loading: false };
-    case 'CREATE_FAIL':
-      return { ...state, loading: false };
-    default:
-      return state;
-  }
-};
+import MessageBox from '../components/MessageBox';
+import { ORDER_CREATE_RESET } from '../constants/orderConstants';
 
 export default function PlaceOrderScreen() {
   const navigate = useNavigate();
-  const [{ loading }, dispatch] = useReducer(reducer, {
-    loading: false,
-  });
-  const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart, userInfo } = state;
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { loading, error, success, order } = orderCreate;
+  const { userInfo } = useSelector((state) => state.user);
+  if (!userInfo) {
+    navigate('/signin?redirect=/placeorder');
+  }
 
   const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
   cart.itemsPrice = round2(
@@ -41,34 +31,43 @@ export default function PlaceOrderScreen() {
   cart.taxPrice = round2(0.15 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.taxPrice;
   const placeOrderHandler = async () => {
-    try {
-      dispatch({ type: 'CREATE_REQUEST' });
-      const { data } = await Axios.post(
-        '/api/orders',
-        {
-          orderItems: cart.cartItems,
-          orderInformation: cart.orderInformation,
-          itemsPrice: cart.itemsPrice,
-          taxPrice: cart.taxPrice,
-          totalPrice: cart.totalPrice,
-        },
-        {
-          headers: {
-            authorization: `Bearer ${userInfo.token}`,
-          },
-        }
-      );
-      ctxDispatch({ type: 'CART_CLEAR' });
-      dispatch({ type: 'CREATE_SUCCESS' });
-      localStorage.removeItem('cartItems');
-      navigate(`/orders/${data.order._id}`);
-    } catch (err) {
-      dispatch({ type: 'CREATE_FAIL' });
-      toast.error(getError(err));
-    }
+    dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
+    // try {
+    //   dispatch({ type: 'CREATE_REQUEST' });
+    //   const { data } = await axios.post(
+    //     '/api/orders',
+    //     {
+    //       orderItems: cartItems,
+    //       orderInfo: cart.orderInfo,
+    //       itemsPrice: cart.itemsPrice,
+    //       taxPrice: cart.taxPrice,
+    //       totalPrice: cart.totalPrice,
+    //     },
+    //     {
+    //       headers: {
+    //         authorization: `Bearer ${userInfo.token}`,
+    //       },
+    //     }
+    //   );
+    //   dispatch({ type: CART_EMPTY });
+    //   dispatch({ type: 'CREATE_SUCCESS' });
+    //   localStorage.removeItem('cartItems');
+    //   navigate(`/orders/${data.order._id}`);
+    // } catch (err) {
+    //   dispatch({ type: 'CREATE_FAIL' });
+    //   toast.error(getError(err));
+    // }
   };
+  if (success) {
+    navigate(`/orders/${order._id}`);
+    dispatch({ type: ORDER_CREATE_RESET });
+  }
 
-  return (
+  return loading ? (
+    <LoadingBox></LoadingBox>
+  ) : error ? (
+    <MessageBox variant="danger">{error}</MessageBox>
+  ) : (
     <div>
       <CheckoutSteps step1 step2 step3></CheckoutSteps>
       <Helmet>
@@ -81,16 +80,16 @@ export default function PlaceOrderScreen() {
             <Card.Body>
               <Card.Title>Order Information</Card.Title>
               <Card.Text>
-                <strong>Name:</strong> {cart.orderInformation.fullName}
+                <strong>Name:</strong> {cart.orderInfo.fullName}
                 <br />
                 <strong>Phone Number:</strong>
-                {cart.orderInformation.phoneNumber}
+                {cart.orderInfo.phoneNumber}
                 <br />
                 <strong>Email:</strong>
-                {cart.orderInformation.contactEmail}
+                {cart.orderInfo.contactEmail}
                 <br />
                 <strong>Zip Code:</strong>
-                {cart.orderInformation.zipCode}
+                {cart.orderInfo.zipCode}
                 <br />
               </Card.Text>
               <Link to="/OrderInfo">Edit</Link>

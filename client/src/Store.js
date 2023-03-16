@@ -1,15 +1,30 @@
-import { createContext, useReducer } from 'react';
-
-export const Store = createContext();
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import thunk from 'redux-thunk';
+import { cartReducer } from './reducers/cartReducers';
+import {
+  orderCreateReducer,
+  orderDetailsReducer,
+} from './reducers/orderReducers';
+import {
+  productDetailsReducer,
+  productListReducer,
+} from './reducers/productReducers';
+import {
+  userDetailsReducer,
+  userSigninReducer,
+  userSignUpReducer,
+} from './reducers/userReducers';
 
 const initialState = {
-  userInfo: localStorage.getItem('userInfo')
-    ? JSON.parse(localStorage.getItem('userInfo'))
-    : null,
+  userSignin: {
+    userInfo: localStorage.getItem('userInfo')
+      ? JSON.parse(localStorage.getItem('userInfo'))
+      : null,
+  },
 
   cart: {
-    orderInformation: localStorage.getItem('orderInformation')
-      ? JSON.parse(localStorage.getItem('orderInformation'))
+    orderInfo: localStorage.getItem('orderInfo')
+      ? JSON.parse(localStorage.getItem('orderInfo'))
       : {},
     cartItems: localStorage.getItem('cartItems')
       ? JSON.parse(localStorage.getItem('cartItems'))
@@ -17,57 +32,22 @@ const initialState = {
   },
 };
 
-function reducer(state, action) {
-  switch (action.type) {
-    case 'CART_ADD_ITEM':
-      //add to cart
-      const newItem = action.payload;
-      const existItem = state.cart.cartItems.find(
-        (item) => item._id === newItem._id
-      );
-      const cartItems = existItem
-        ? state.cart.cartItems.map((item) =>
-            item._id === existItem._id ? newItem : item
-          )
-        : [...state.cart.cartItems, newItem];
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      return { ...state, cart: { ...state.cart, cartItems } };
-    case 'CART_REMOVE_ITEM': {
-      const cartItems = state.cart.cartItems.filter(
-        (item) => item._id !== action.payload._id
-      );
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      return { ...state, cart: { ...state.cart, cartItems } };
-    }
-    case 'CART_CLEAR':
-      return { ...state, cart: { ...state.cart, cartItems: [] } };
-    case 'USER_SIGNIN':
-      return { ...state, userInfo: action.payload };
-    case 'USER_SIGNOUT':
-      return {
-        ...state,
-        userInfo: null,
-        cart: {
-          cartItems: [],
-          orderInformation: {},
-        },
-      };
-    case 'SAVE_ORDER_INFORMATION':
-      return {
-        ...state,
-        cart: {
-          ...state.cart,
-          orderInformation: action.payload,
-        },
-        cart: { cartItems: [] },
-      };
-    default:
-      return state;
-  }
-}
+const reducer = combineReducers({
+  cart: cartReducer,
+  orderCreate: orderCreateReducer,
+  orderDetails: orderDetailsReducer,
+  userSignin: userSigninReducer,
+  userSignUp: userSignUpReducer,
+  userDetails: userDetailsReducer,
+  productList: productListReducer,
+  productDetails: productDetailsReducer,
+});
 
-export function StoreProvider(props) {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const value = { state, dispatch };
-  return <Store.Provider value={value}>{props.children}</Store.Provider>;
-}
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+  reducer,
+  initialState,
+  composeEnhancer(applyMiddleware(thunk))
+);
+
+export default store;

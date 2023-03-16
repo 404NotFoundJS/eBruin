@@ -1,13 +1,12 @@
-import Axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import { Helmet } from 'react-helmet-async';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Store } from '../Store';
-import { getError } from '../utils';
+import { signUp } from '../actions/userActions';
 
 export default function SignupScreen() {
   const navigate = useNavigate();
@@ -18,25 +17,16 @@ export default function SignupScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { userInfo } = state;
-  const submitHandler = async (e) => {
+  const userSignUp = useSelector((state) => state.userSignUp);
+  const { userInfo, loading, error } = userSignUp;
+
+  const dispatch = useDispatch();
+  const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       toast.error('Passwords do not match');
-      return;
-    }
-    try {
-      const { data } = await Axios.post('/api/users/signup', {
-        name,
-        email,
-        password,
-      });
-      ctxDispatch({ type: 'USER_SIGNIN', payload: data });
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      navigate(redirect || '/');
-    } catch (err) {
-      toast.error(getError(err));
+    } else {
+      dispatch(signUp(name, email, password));
     }
   };
   useEffect(() => {
@@ -83,6 +73,10 @@ export default function SignupScreen() {
         </Form.Group>
         <div className="mb-3">
           <Button type="submit">Sign Up</Button>
+        </div>
+        <div>
+          {loading && <div>Loading...</div>}
+          {error && <div>{error}</div>}
         </div>
         <div className="mb-3">
           Already have an account?{' '}
