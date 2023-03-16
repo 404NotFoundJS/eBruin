@@ -44,16 +44,23 @@ export default function SignupScreen() {
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Name</Form.Label>
-          <Form.Control onChange={(e) => setName(e.target.value)} required />
+          <Form.Control
+            placeholder="Name"
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <div className="d-flex">
+            <Form.Control
+              placeholder="UCLA ID"
+              required
+              onChange={(e) => setEmail(e.target.value + '@ucla.edu')}
+            />
+            <Form.Control placeholder="@ucla.edu" disabled />
+          </div>
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>Password</Form.Label>
