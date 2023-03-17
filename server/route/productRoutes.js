@@ -3,6 +3,7 @@ import Product from '../models/productModel.js';
 import expressAsyncHandler from 'express-async-handler';
 import multer from 'multer';
 import escapeStringRegexp from 'escape-string-regexp';
+import { isAuth } from '../utils.js';
 
 const productRouter = express.Router();
 
@@ -96,6 +97,20 @@ productRouter.post(
     });
     const product = await newProduct.save();
     res.send(product);
+  })
+);
+
+productRouter.delete(
+  '/:id',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const product = await Product.findById(req.params.id);
+    if (product && product.seller === req.user._id) {
+      const deleteProduct = await product.remove();
+      res.send({ message: 'Product Deleted', product: deleteProduct });
+    } else {
+      res.status(404).send({ message: 'Product Not Found' });
+    }
   })
 );
 
