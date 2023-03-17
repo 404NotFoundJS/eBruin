@@ -6,44 +6,45 @@ import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { listProducts } from '../actions/productActions';
-import ItemPagination from '../components/ItemPagination';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import Product from '../components/Product';
+import ItemPagination from '../components/ItemPagination';
 
-function HomeScreen() {
+function SearchScreen() {
   const dispatch = useDispatch();
-  const { pageNumber = 1 } = useParams();
+  const { keyword = '', pageNumber = 1 } = useParams();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, noMatch, pages } = productList;
 
   useEffect(() => {
-    dispatch(listProducts({ pageNumber: pageNumber }));
-  }, [dispatch, pageNumber]);
+    dispatch(listProducts({ keyword: keyword, pageNumber: pageNumber }));
+  }, [dispatch, keyword, pageNumber]);
   return (
     <div>
       <Helmet>
         <title>eBruin</title>
       </Helmet>
-      <h1>All Listings</h1>
+      <Row>
+        <h1>Search Results for "{keyword}":</h1>
+      </Row>
       <div className="products">
         {loading ? (
           <LoadingBox />
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          <>
-            {noMatch && <MessageBox>No Product Found</MessageBox>}
-            <Container fluid>
-              <Row>
-                {products.map((product) => (
-                  <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
-                    <Product product={product}></Product>
-                  </Col>
-                ))}
-              </Row>
-            </Container>
-          </>
+          <Container fluid>
+            {noMatch ? (
+              <h2>No match found</h2>
+            ) : (
+              products.map((product) => (
+                <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
+                  <Product product={product}></Product>
+                </Col>
+              ))
+            )}
+          </Container>
         )}
       </div>
       <br />
@@ -68,4 +69,4 @@ function HomeScreen() {
     </div>
   );
 }
-export default HomeScreen;
+export default SearchScreen;
