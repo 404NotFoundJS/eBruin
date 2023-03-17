@@ -65,9 +65,9 @@ const UploadScreen = () => {
       // }
 
       const res = await axios.post("http://localhost:4000/api/products/upload-product", formData);
+      message.success('Product added successfully');
       console.log(res.data); // handle success response
       console.log("added successfully")
-      message.success('Product added successfully');
       //form.resetFields();
       //setFileName(null);
       setFileList([]);

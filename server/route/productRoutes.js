@@ -1,8 +1,9 @@
+import escapeStringRegexp from 'escape-string-regexp';
 import express from 'express';
-import Product from '../models/productModel.js';
 import expressAsyncHandler from 'express-async-handler';
 import multer from 'multer';
-import escapeStringRegexp from 'escape-string-regexp';
+import cloudinary from '../cloudinary.js';
+import Product from '../models/productModel.js';
 
 const productRouter = express.Router();
 
@@ -81,10 +82,14 @@ productRouter.post(
   '/upload-product', 
   upload.single('productImage'),
   expressAsyncHandler(async (req, res) => {
-      const newProduct = new Product({
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      upload_preset: 'products',
+    });
+    console.log(result);
+    const newProduct = new Product({
       name: req.body.name,
       slug: req.body.slug,
-      productImage: req.file.originalname,
+      productImage: result.secure_url,
       category: req.body.category,
       description: req.body.description,
       price: req.body.price,
