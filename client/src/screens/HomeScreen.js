@@ -26,45 +26,57 @@ function HomeScreen() {
         <title>eBruin</title>
       </Helmet>
       <h1>All Listings</h1>
-      <div className="products">
-        {loading ? (
-          <LoadingBox />
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
-        ) : (
-          <>
-            {noMatch && <MessageBox>No Product Found</MessageBox>}
-            <Container fluid>
-              <Row>
-                {products.map((product) => (
-                  <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
-                    <Product product={product}></Product>
-                  </Col>
-                ))}
-              </Row>
-            </Container>
-          </>
-        )}
-      </div>
-      <br />
-      <Container style={{ position: 'absolute', bottom: 20 }}>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <ItemPagination
-            page={parseInt(pageNumber)}
-            pages={parseInt(pages)}
-            keyword={''}
-          />
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          {loading ? (
-            <LoadingBox />
-          ) : error ? (
-            <MessageBox variant="danger">{error}</MessageBox>
-          ) : (
-            <h6>{products.length} Listings Found</h6>
-          )}
-        </div>
-      </Container>
+      {noMatch ? (
+        <MessageBox>Wow, no listings!?</MessageBox>
+      ) : (
+        <>
+          <div className="products">
+            {loading ? (
+              <LoadingBox />
+            ) : error ? (
+              <MessageBox variant="danger">{error}</MessageBox>
+            ) : (
+              <>
+                {noMatch && <MessageBox>No Product Found</MessageBox>}
+                <Container fluid>
+                  <Row>
+                    {products.map((product) => (
+                      <Col
+                        key={product.slug}
+                        sm={6}
+                        md={4}
+                        lg={3}
+                        className="mb-3"
+                      >
+                        <Product product={product}></Product>
+                      </Col>
+                    ))}
+                  </Row>
+                </Container>
+              </>
+            )}
+          </div>
+          <br />
+          <Container style={{ position: 'absolute', bottom: 20 }}>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <ItemPagination
+                page={parseInt(pageNumber)}
+                pages={parseInt(pages)}
+                keyword={''}
+              />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              {loading ? (
+                <LoadingBox />
+              ) : error ? (
+                <MessageBox variant="danger">{error}</MessageBox>
+              ) : (
+                <h6>{products.length} Listings Found</h6>
+              )}
+            </div>
+          </Container>
+        </>
+      )}
     </div>
   );
 }
