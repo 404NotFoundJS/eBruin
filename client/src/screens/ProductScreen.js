@@ -14,7 +14,6 @@ import { deleteProduct, detailsProduct } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import ProfileCard from '../components/ProfileCard';
-import Rating from '../components/Rating';
 
 function ProductScreen() {
   const navigate = useNavigate();
@@ -72,12 +71,7 @@ function ProductScreen() {
               </Helmet>
               <h1>{product.name}</h1>
             </ListGroup.Item>
-            <ListGroup.Item>
-              <Rating
-                rating={product.rating}
-                numReviews={product.numReviews}
-              ></Rating>
-            </ListGroup.Item>
+
             <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
             <ListGroup.Item>
               Description:
@@ -106,15 +100,6 @@ function ProductScreen() {
                     <div className="d-grid">
                       <Button onClick={addToCartHandler} variant="primary">
                         Add to Cart
-                      </Button>
-                    </div>
-                  </ListGroup.Item>
-                )}
-                {(product.seller === userInfo._id) && (
-                  <ListGroup.Item>
-                    <div className="d-grid">
-                      <Button onClick={deleteHandler} variant="primary">
-                        Delete product
                       </Button>
                     </div>
                   </ListGroup.Item>

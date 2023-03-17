@@ -112,7 +112,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    dispatch({ type: USER_UPDATE_PROFILE_FAIL, payload: message });
+    dispatch({ type: USER_UPDATE_PROFILE_FAIL, payload: 'Email already used' });
   }
 };
 export const updateUser = (user) => async (dispatch, getState) => {
