@@ -10,6 +10,7 @@ import {
 } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import axios from "axios";
 const { TextArea } = Input;
 
@@ -23,6 +24,7 @@ const getBase64 = (file) =>
 
 
 const UploadScreen = () => {
+  const userInfo = useSelector((state) => state.userSignin.userInfo);
   const [form] = Form.useForm();
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
@@ -48,18 +50,19 @@ const UploadScreen = () => {
     try {
       const formData = new FormData();
       formData.append('name', values.name);
-      formData.append('brand', values.brand);
+      // formData.append('status', values.name);
+      formData.append('seller', userInfo._id);
       formData.append('category', values.category);
       formData.append('price', values.price);
       formData.append('countInStock', values.countInStock);
       formData.append('description', values.description);
-      if (fileList[0] instanceof File) {
-        console.log("it is a File")
-      } else {
-        console.log("it is not a File")
-      }
       formData.append('productImage', fileList[0]);
       formData.append('slug', '');
+      // if (fileList[0] instanceof File) {
+      //   console.log("it is a File")
+      // } else {
+      //   console.log("it is not a File")
+      // }
 
       const res = await axios.post("http://localhost:4000/api/products/upload-product", formData);
       console.log(res.data); // handle success response
@@ -117,19 +120,6 @@ const UploadScreen = () => {
             {
               required: true,
               message: "Please enter a product name"
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item 
-          label="Brand"
-          name="brand"
-          rules={[
-            {
-              required: true,
-              message: "Please enter a product brand"
             },
           ]}
         >

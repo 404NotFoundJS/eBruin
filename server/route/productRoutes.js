@@ -64,7 +64,7 @@ const storage = multer.diskStorage({
       callback(null, '../client/public/uploads/');
   },
   filename: (req, file, callback) => {
-      callback(null, Date.now() + '-' + file.originalname);
+      callback(null, file.originalname);
   }
 })
 
@@ -83,13 +83,11 @@ productRouter.post(
       name: req.body.name,
       slug: req.body.slug,
       productImage: req.file.originalname,
-      brand: req.body.brand,
       category: req.body.category,
       description: req.body.description,
       price: req.body.price,
       countInStock: req.body.countInStock,
-      rating: req.body.rating,
-      numReviews: req.body.numReviews
+      seller: req.body.seller
       });
       const product = await newProduct.save();
       res.send(product);
