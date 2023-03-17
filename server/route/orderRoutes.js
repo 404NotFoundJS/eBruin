@@ -51,4 +51,21 @@ orderRouter.get(
   })
 );
 
+orderRouter.put(
+  '/:id/complete',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id);
+    if (order) {
+      order.orderComplete = true;
+      order.completeAt = Date.now();
+
+      const updatedOrder = await order.save();
+      res.send({ message: 'Order Completed', order: updatedOrder });
+    } else {
+      res.status(404).send({ message: 'Order Not Found' });
+    }
+  })
+);
+
 export default orderRouter;

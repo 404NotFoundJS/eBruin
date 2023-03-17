@@ -6,6 +6,7 @@ import cors from 'cors';
 import productRouter from './route/productRoutes.js';
 import userRouter from './route/userRoutes.js';
 import orderRouter from './route/orderRoutes.js';
+import reviewRouter from './route/reviewRoutes.js';
 
 //const express = require('express');
 //const bodyParser = require('body-parser');
@@ -32,6 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
+app.use('/api/reviews', reviewRouter);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });

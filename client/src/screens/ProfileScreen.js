@@ -14,6 +14,7 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import OrderHistory from '../components/OrderHistory';
 import ProfileCard from '../components/ProfileCard';
+import ReviewTable from '../components/ReviewTable';
 
 export default function ProfileScreen() {
   const dispatch = useDispatch();
@@ -84,7 +85,7 @@ export default function ProfileScreen() {
                     <OrderHistory></OrderHistory>
                   </Tab>
                   <Tab eventKey="reviews" title="Reviews">
-                    <Row>userInfo Reviews</Row>
+                    <ReviewTable></ReviewTable>
                   </Tab>
                 </Tabs>
               </Card.Header>

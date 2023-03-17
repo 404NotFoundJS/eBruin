@@ -5,6 +5,7 @@ import {
   orderCreateReducer,
   orderDetailsReducer,
   orderMineListReducer,
+  orderCompleteReducer,
 } from './reducers/orderReducers';
 import {
   productDetailsReducer,
@@ -15,6 +16,10 @@ import {
   userSigninReducer,
   userSignUpReducer,
 } from './reducers/userReducers';
+import {
+  reviewCreateReducer,
+  reviewListReducer,
+} from './reducers/reviewReducers';
 
 const initialState = {
   userSignin: {
@@ -38,11 +43,14 @@ const reducer = combineReducers({
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderMineList: orderMineListReducer,
+  orderComplete: orderCompleteReducer,
   userSignin: userSigninReducer,
   userSignUp: userSignUpReducer,
   userDetails: userDetailsReducer,
   productList: productListReducer,
   productDetails: productDetailsReducer,
+  reviewCreate: reviewCreateReducer,
+  reviewList: reviewListReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -3,12 +3,18 @@ import mongoose from 'mongoose';
 const reviewSchema = new mongoose.Schema(
   {
     reviewer: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectID,
+      ref: 'User',
       required: true,
     },
     target: {
       type: mongoose.Schema.Types.ObjectID,
       ref: 'User',
+      required: true,
+    },
+    order: {
+      type: mongoose.Schema.Types.ObjectID,
+      ref: 'Order',
       required: true,
     },
     rating: {

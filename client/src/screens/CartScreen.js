@@ -14,6 +14,7 @@ import MessageBox from '../components/MessageBox';
 export default function CartScreen() {
   const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.cartItems);
+  const userInfo = useSelector((state) => state.userSignin.userInfo);
   const dispatch = useDispatch();
   const orderCreate = useSelector((state) => state.orderCreate);
   const { loading, error, success, order } = orderCreate;
@@ -27,7 +28,11 @@ export default function CartScreen() {
   };
 
   const checkoutHandler = () => {
-    dispatch(createOrder(cartItems));
+    if (!userInfo) {
+      navigate('/signin');
+    } else {
+      dispatch(createOrder(cartItems));
+    }
   };
 
   useEffect(() => {

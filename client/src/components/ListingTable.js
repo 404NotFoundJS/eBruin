@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Table } from 'react-bootstrap';
-import BasicPagination from './Pagination';
 // import Pagination from '@mui/material/Pagination';
 import Pagination from 'react-bootstrap/Pagination';
 

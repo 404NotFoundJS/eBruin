@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { signout } from './actions/userActions';
 import SearchBar from './components/SearchBar';
 import CartScreen from './screens/CartScreen';
 import HomeScreen from './screens/HomeScreen';
@@ -17,6 +18,7 @@ import PendingScreen from './screens/PendingScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import ProductScreen from './screens/ProductScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import ReviewUserScreen from './screens/ReviewUserScreen';
 import SearchScreen from './screens/SearchScreen';
 import SigninScreen from './screens/SigninScreen';
 import SignupScreen from './screens/SignupScreen';
@@ -28,10 +30,7 @@ function App() {
   const dispatch = useDispatch();
 
   const signoutHandler = () => {
-    dispatch({ type: 'USER_SIGNOUT' });
-    localStorage.removeItem('userInfo');
-    localStorage.removeItem('cartItems');
-    localStorage.removeItem('orderInfo');
+    dispatch(signout());
   };
   return (
     <BrowserRouter>
@@ -68,7 +67,6 @@ function App() {
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item
-                      href="/"
                       className="dropdown-item"
                       onClick={signoutHandler}
                     >
@@ -105,6 +103,10 @@ function App() {
               <Route path="/orders/:id" element={<OrderScreen />} />
               <Route path="/pending" element={<PendingScreen />} />
               <Route path="/orderhistory" element={<OrderHistoryScreen />} />
+              <Route
+                path="/review/user/:id/order/:orderId"
+                element={<ReviewUserScreen />}
+              />
             </Routes>
           </Container>
         </main>

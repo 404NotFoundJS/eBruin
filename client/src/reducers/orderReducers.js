@@ -12,6 +12,10 @@ import {
   ORDER_MINE_LIST_FAIL,
   ORDER_MINE_LIST_REQUEST,
   ORDER_MINE_LIST_SUCCESS,
+  ORDER_COMPLETE_REQUEST,
+  ORDER_COMPLETE_SUCCESS,
+  ORDER_COMPLETE_FAIL,
+  ORDER_COMPLETE_RESET,
 } from '../constants/orderConstants';
 
 export const orderCreateReducer = (state = { orders: [] }, action) => {
@@ -55,6 +59,21 @@ export const orderMineListReducer = (state = { orders: [] }, action) => {
       return { loading: false, orders: action.payload };
     case ORDER_MINE_LIST_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const orderCompleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ORDER_COMPLETE_REQUEST:
+      return { loading: true };
+    case ORDER_COMPLETE_SUCCESS:
+      return { loading: false, success: true };
+    case ORDER_COMPLETE_FAIL:
+      return { loading: false, error: action.payload };
+    case ORDER_COMPLETE_RESET:
+      return {};
     default:
       return state;
   }

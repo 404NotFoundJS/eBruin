@@ -11,6 +11,10 @@ import {
   ORDER_MINE_LIST_FAIL,
   ORDER_MINE_LIST_REQUEST,
   ORDER_MINE_LIST_SUCCESS,
+  ORDER_COMPLETE_REQUEST,
+  ORDER_COMPLETE_SUCCESS,
+  ORDER_COMPLETE_FAIL,
+  ORDER_COMPLETE_RESET,
 } from '../constants/orderConstants';
 
 export const createOrder = (cartItems) => async (dispatch, getState) => {
@@ -95,5 +99,28 @@ export const listOrderMine = () => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: ORDER_MINE_LIST_FAIL, payload: message });
+  }
+};
+
+export const completeOrder = (orderId) => async (dispatch, getState) => {
+  dispatch({ type: ORDER_COMPLETE_REQUEST, payload: orderId });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await axios.put(
+      `/api/orders/${orderId}/complete`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      }
+    );
+    dispatch({ type: ORDER_COMPLETE_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: ORDER_COMPLETE_FAIL, payload: message });
   }
 };

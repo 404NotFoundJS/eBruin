@@ -6,6 +6,7 @@ import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 import Pagination from 'react-bootstrap/Pagination';
 import { useNavigate } from 'react-router-dom';
+import { completeOrder } from '../actions/orderActions';
 
 export default function OrderHistory() {
   const dispatch = useDispatch();
@@ -14,10 +15,13 @@ export default function OrderHistory() {
   const [pageSize] = useState(12);
   const [totalPages, setTotalPages] = useState(1);
   const orderMineList = useSelector((state) => state.orderMineList);
+  const { userInfo } = useSelector((state) => state.userSignin);
   const { loading, error, orders } = orderMineList;
-  // const orderCompleteHandler = (order) => {
-  //   navigate(`/user/${order.seller._id}/reviewUser`);
-  // };
+  const orderCompleteHandler = (order) => {
+    dispatch(completeOrder(order._id));
+    const { seller } = order;
+    navigate(`/review/user/${seller._id}/order/${order._id}`);
+  };
   useEffect(() => {
     dispatch(listOrderMine());
   }, [dispatch]);
@@ -53,7 +57,7 @@ export default function OrderHistory() {
                 ) : (
                   <Button
                     variant="success"
-                    // onClick={orderCompleteHandler(order)}
+                    onClick={() => orderCompleteHandler(order)}
                   >
                     Confirm
                   </Button>
