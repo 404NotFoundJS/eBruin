@@ -15,8 +15,10 @@ export default function SignupScreen() {
   const redirect = redirectInUrl ? redirectInUrl : '/';
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [description, setDescription] = useState('');
   const userSignUp = useSelector((state) => state.userSignUp);
   const { userInfo, loading, error } = userSignUp;
 
@@ -26,7 +28,7 @@ export default function SignupScreen() {
     if (password !== confirmPassword) {
       toast.error('Passwords do not match');
     } else {
-      dispatch(signUp(name, email, password));
+      dispatch(signUp(name, email, phone, password));
     }
   };
   useEffect(() => {
@@ -62,6 +64,16 @@ export default function SignupScreen() {
             <Form.Control placeholder="@ucla.edu" disabled />
           </div>
         </Form.Group>
+
+        <Form.Group className="mb-3" controlId="phone">
+          <Form.Label>Phone</Form.Label>
+          <Form.Control
+            placeholder="Phone Number"
+            required
+            onChange={(e) => setPhone(e.target.value)}
+          />
+        </Form.Group>
+
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -69,6 +81,7 @@ export default function SignupScreen() {
             required
             onChange={(e) => setPassword(e.target.value)}
           />
+
           <Form.Group className="mb-3" controlId="confirmPassword">
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control
@@ -77,6 +90,16 @@ export default function SignupScreen() {
               required
             />
           </Form.Group>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="description">
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            placeholder="Tell us about yourself(optional)"
+            onChange={(e) => setDescription(e.target.value)}
+          />
         </Form.Group>
         <div className="mb-3">
           <Button type="submit">Sign Up</Button>
