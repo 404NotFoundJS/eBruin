@@ -4,15 +4,14 @@ import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
+import { getError } from '../utils';
 
 export default function EditProfileScreen() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [sellerName, setSellerName] = useState('');
-  const [sellerLogo, setSellerLogo] = useState('');
-  const [sellerDescription, setSellerDescription] = useState('');
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -32,30 +31,28 @@ export default function EditProfileScreen() {
     } else {
       setName(user.name);
       setEmail(user.email);
-      if (user.seller) {
-        setSellerName(user.seller.name);
-        setSellerLogo(user.seller.logo);
-        setSellerDescription(user.seller.description);
-      }
+      setPhone(user.phone);
     }
   }, [dispatch, userInfo._id, user]);
   const submitHandler = (e) => {
     e.preventDefault();
     // dispatch update profile
-    if (password !== confirmPassword) {
-      alert('Password and Confirm Password Are Not Matched');
-    } else {
-      dispatch(
-        updateUserProfile({
-          userId: user._id,
-          name,
-          email,
-          password,
-          sellerName,
-          sellerLogo,
-          sellerDescription,
-        })
-      );
+    try {
+      if (password !== confirmPassword) {
+        alert('Password and Confirm Password Are Not Matched');
+      } else {
+        dispatch(
+          updateUserProfile({
+            userId: userInfo._id,
+            name,
+            email,
+            phone,
+            password,
+          })
+        );
+      }
+    } catch (err) {
+      dispatch({ type: 'USER_UPDATE_PROFILE_FAIL', payload: getError(err) });
     }
   };
   return (
@@ -97,6 +94,16 @@ export default function EditProfileScreen() {
                 placeholder="Enter email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+              ></input>
+            </div>
+            <div>
+              <label htmlFor="phone">Phone</label>
+              <input
+                id="phone"
+                type="text"
+                placeholder="Enter phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
               ></input>
             </div>
             <div>
