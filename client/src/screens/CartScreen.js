@@ -46,9 +46,9 @@ export default function CartScreen() {
                   <Row className="align-items-center">
                     <Col md={4}>
                       <img
-                        src={item.image}
+                        src={`/uploads/${item.image}`}
                         alt={item.name}
-                        className="img-fluid rounded img-thumbnail"
+                        className="img-fluid rounded img-thumbnail cart-img"
                       ></img>{' '}
                       <Link to={`/product/${item.slug}`}>{item.name}</Link>
                     </Col>
