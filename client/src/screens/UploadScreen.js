@@ -45,8 +45,6 @@ const UploadScreen = () => {
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
-    console.log(fileList[0].name);
     try {
       const formData = new FormData();
       formData.append('name', values.name);
@@ -62,9 +60,8 @@ const UploadScreen = () => {
       }
       formData.append('productImage', fileList[0]);
       formData.append('slug', '');
-      formData.append('rating', '');
-      formData.append('review', '');
-      const res = await axios.post("http://localhost:4000/api/seed/upload-product", formData);
+
+      const res = await axios.post("http://localhost:4000/api/products/upload-product", formData);
       console.log(res.data); // handle success response
       console.log("added successfully")
       message.success('Product added successfully');
