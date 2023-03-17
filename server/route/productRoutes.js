@@ -2,6 +2,7 @@ import express from 'express';
 import Product from '../models/productModel.js';
 import expressAsyncHandler from 'express-async-handler';
 import multer from 'multer';
+import escapeStringRegexp from 'escape-string-regexp';
 
 const productRouter = express.Router();
 
@@ -10,12 +11,13 @@ productRouter.get(
   expressAsyncHandler(async (req, res) => {
     const pageSize = 12;
     const page = Number(req.query.pageNumber) || 1;
-    const search = req.query.search || '';
+    const keyword = decodeURIComponent(req.query.keyword || '');
+    const keywordRegex = new RegExp(escapeStringRegexp(keyword), 'gi');
 
-    const searchFilter = search
+    const searchFilter = keyword
       ? {
           status: 'available',
-          $or: [{ name: search }, { description: search }],
+          $or: [{ name: keywordRegex }, { description: keywordRegex }],
         }
       : { status: 'available' };
 

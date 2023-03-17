@@ -1,7 +1,5 @@
 import Badge from 'react-bootstrap/Badge';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -9,8 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SearchBar from './components/SearchBar';
 import CartScreen from './screens/CartScreen';
 import HomeScreen from './screens/HomeScreen';
+import OrderConfirmScreen from './screens/OrderConfirmScreen';
 import OrderConfirmScreen from './screens/OrderConfirmScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import OrderScreen from './screens/OrderScreen';
@@ -18,6 +18,7 @@ import PendingScreen from './screens/PendingScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import ProductScreen from './screens/ProductScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import SearchScreen from './screens/SearchScreen';
 import SigninScreen from "./screens/SigninScreen";
 import SignupScreen from "./screens/SignupScreen";
 import UploadScreen from './screens/UploadScreen';
@@ -28,7 +29,6 @@ function App() {
   const { userInfo } = useSelector((state) => state.userSignin);
   const dispatch = useDispatch();
 
-  const searchHandler = () => {};
   const signoutHandler = () => {
     dispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');
@@ -43,20 +43,7 @@ function App() {
           <Navbar expand="xxl" className="navbar navbar-custom">
             <Container fluid="xxl">
               <Navbar.Brand href="/">eBruin</Navbar.Brand>
-              <Form className="ms-auto d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search Listings"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button
-                  variant="outline-success"
-                  onClick={() => searchHandler()}
-                >
-                  Search
-                </Button>
-              </Form>
+              <SearchBar />
               <Nav className="ms-auto">
                 <Link to="/cart" className="nav-link">
                   <i className="fas fa-shopping-cart fa-lg"></i>
@@ -106,7 +93,12 @@ function App() {
           <Container fluid="md">
             <Routes>
               <Route path="/" element={<HomeScreen />} />
+              <Route path="/pageNumber/:pageNumber" element={<HomeScreen />} />
               <Route path="/home" element={<HomeScreen />} />
+              <Route
+                path="/search/keyword/:keyword/pageNumber/:pageNumber"
+                element={<SearchScreen />}
+              />
               <Route path="/product/:id" element={<ProductScreen />} />
               <Route path="/cart" element={<CartScreen />} />
               <Route path="/signin" element={<SigninScreen />} />

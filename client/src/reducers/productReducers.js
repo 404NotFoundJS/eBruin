@@ -8,7 +8,7 @@ import {
 } from '../constants/productConstants';
 
 export const productListReducer = (
-  state = { loading: true, products: [] },
+  state = { loading: true, products: [], noMatch: '', page: 1, pages: 1 },
   action
 ) => {
   switch (action.type) {
@@ -18,6 +18,7 @@ export const productListReducer = (
       return {
         loading: false,
         products: action.payload.products,
+        noMatch: action.payload.noMatch,
         pages: action.payload.pages,
         page: action.payload.page,
       };

@@ -9,14 +9,14 @@ import {
 } from '../constants/productConstants';
 
 export const listProducts =
-  ({ pageNumber = '', search = '' }) =>
+  ({ pageNumber = '', keyword = '' }) =>
   async (dispatch) => {
     dispatch({
       type: PRODUCT_LIST_REQUEST,
     });
     try {
       const { data } = await axios.get(
-        `/api/products?pageNumber=${pageNumber}&search=${search}`
+        `/api/products?pageNumber=${pageNumber}&keyword=${keyword}`
       );
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     } catch (error) {

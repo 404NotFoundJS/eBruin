@@ -7,14 +7,17 @@ import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import store from './Store';
+import { ThemeProvider } from 'react-bootstrap';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <HelmetProvider>
-        <App />
-      </HelmetProvider>
+      <ThemeProvider breakpoints={['sm', 'md', 'lg', 'xl']}>
+        <HelmetProvider>
+          <App />
+        </HelmetProvider>
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>
 );
