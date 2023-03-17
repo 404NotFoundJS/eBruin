@@ -5,3 +5,15 @@ module.exports = function(app) {
         secure: false
     }));
 };
+
+// const { createProxyMiddleware } = require('http-proxy-middleware');
+
+// module.exports = function(app) {
+//   app.use(
+//     '/api',
+//     createProxyMiddleware({
+//       target: 'http://localhost:4000',
+//       changeOrigin: true,
+//     })
+//   );
+// };

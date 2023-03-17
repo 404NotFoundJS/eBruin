@@ -1,6 +1,7 @@
 import express from 'express';
 import Product from '../models/productModel.js';
 import expressAsyncHandler from 'express-async-handler';
+import multer from 'multer';
 import escapeStringRegexp from 'escape-string-regexp';
 
 const productRouter = express.Router();
@@ -57,6 +58,41 @@ productRouter.get(
     } else {
       res.status(404).send({ message: 'Product Not Found' });
     }
+  })
+);
+
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+      callback(null, '../client/public/uploads/');
+  },
+  filename: (req, file, callback) => {
+      callback(null, file.originalname);
+  }
+})
+
+const upload = multer({ storage: storage });
+
+// productRouter.post('/upload', upload.single('productImage'), (req, res) => {
+//   // Return the filename of the uploaded file to the frontend
+//   res.json({ filename: req.file.filename });
+// });
+
+productRouter.post(
+  '/upload-product', 
+  upload.single('productImage'),
+  expressAsyncHandler(async (req, res) => {
+      const newProduct = new Product({
+      name: req.body.name,
+      slug: req.body.slug,
+      productImage: req.file.originalname,
+      category: req.body.category,
+      description: req.body.description,
+      price: req.body.price,
+      countInStock: req.body.countInStock,
+      seller: req.body.seller
+      });
+      const product = await newProduct.save();
+      res.send(product);
   })
 );
 

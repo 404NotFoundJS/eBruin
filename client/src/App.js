@@ -18,8 +18,10 @@ import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import ProductScreen from './screens/ProductScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import SearchScreen from './screens/SearchScreen';
-import SigninScreen from './screens/SigninScreen';
-import SignupScreen from './screens/SignupScreen';
+import SigninScreen from "./screens/SigninScreen";
+import SignupScreen from "./screens/SignupScreen";
+import UploadScreen from './screens/UploadScreen';
+
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -100,6 +102,7 @@ function App() {
               <Route path="/cart" element={<CartScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
               <Route path="/signup" element={<SignupScreen />} />
+              <Route path="/upload" element={<UploadScreen />} />
               <Route path="/myProfile" element={<ProfileScreen />} />
               <Route path="/OrderInfo" element={<OrderConfirmScreen />} />
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
