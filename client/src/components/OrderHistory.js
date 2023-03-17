@@ -37,7 +37,7 @@ export default function OrderHistory() {
             <th>Price</th>
             <th>seller</th>
             <th>Created At</th>
-            <th>Status</th>
+            <th>Traded</th>
           </tr>
         </thead>
         <tbody>
@@ -55,7 +55,7 @@ export default function OrderHistory() {
                     variant="success"
                     // onClick={orderCompleteHandler(order)}
                   >
-                    Complete
+                    Confirm
                   </Button>
                 )}
               </td>
