@@ -24,27 +24,33 @@ import {
   USER_UPDATE_SUCCESS,
 } from '../constants/userConstants';
 
-export const signUp = (name, email, password) => async (dispatch) => {
-  dispatch({ type: USER_SIGN_UP_REQUEST, payload: { email, password } });
-  try {
-    const { data } = await axios.post('/api/users/signUp', {
-      name,
-      email,
-      password,
-    });
-    dispatch({ type: USER_SIGN_UP_SUCCESS, payload: data });
-    dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
-    localStorage.setItem('userInfo', JSON.stringify(data));
-  } catch (error) {
+export const signUp =
+  (name, email, phone, password, description) => async (dispatch) => {
     dispatch({
-      type: USER_SIGN_UP_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      type: USER_SIGN_UP_REQUEST,
+      payload: { email, phone, password, description },
     });
-  }
-};
+    try {
+      const { data } = await axios.post('/api/users/signUp', {
+        name,
+        email,
+        phone,
+        password,
+        description,
+      });
+      dispatch({ type: USER_SIGN_UP_SUCCESS, payload: data });
+      dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
+      localStorage.setItem('userInfo', JSON.stringify(data));
+    } catch (error) {
+      dispatch({
+        type: USER_SIGN_UP_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const signin = (email, password) => async (dispatch) => {
   dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } });

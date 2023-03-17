@@ -4,6 +4,7 @@ import expressAsyncHandler from 'express-async-handler';
 import multer from 'multer';
 import cloudinary from '../cloudinary.js';
 import Product from '../models/productModel.js';
+import { isAuth } from '../utils.js';
 
 const productRouter = express.Router();
 
@@ -14,21 +15,24 @@ productRouter.get(
     const page = Number(req.query.pageNumber) || 1;
     const keyword = decodeURIComponent(req.query.keyword || '');
     const keywordRegex = new RegExp(escapeStringRegexp(keyword), 'gi');
+    const sellerId = req.query.sellerId || '';
 
     const searchFilter = keyword
       ? {
           status: 'available',
           $or: [{ name: keywordRegex }, { description: keywordRegex }],
         }
+      : sellerId
+      ? { seller: sellerId }
       : { status: 'available' };
 
     try {
+      const count = await Product.count(searchFilter);
       const products = await Product.find(searchFilter)
         .sort({ updatedAt: -1 })
         .skip(pageSize * (page - 1))
         .limit(pageSize);
       if (products.length > 0) {
-        const count = products.length;
         res.send({ products, page, pages: Math.ceil(count / pageSize) });
       } else {
         res.send({ noMatch: 'No match found' });
@@ -64,12 +68,12 @@ productRouter.get(
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-      callback(null, '../client/public/uploads/');
+    callback(null, '../client/public/uploads/');
   },
   filename: (req, file, callback) => {
-      callback(null, file.originalname);
-  }
-})
+    callback(null, file.originalname);
+  },
+});
 
 const upload = multer({ storage: storage });
 
@@ -79,7 +83,7 @@ const upload = multer({ storage: storage });
 // });
 
 productRouter.post(
-  '/upload-product', 
+  '/upload-product',
   upload.single('productImage'),
   expressAsyncHandler(async (req, res) => {
     const result = await cloudinary.uploader.upload(req.file.path, {
@@ -94,10 +98,24 @@ productRouter.post(
       description: req.body.description,
       price: req.body.price,
       countInStock: req.body.countInStock,
-      seller: req.body.seller
-      });
-      const product = await newProduct.save();
-      res.send(product);
+      seller: req.body.seller,
+    });
+    const product = await newProduct.save();
+    res.send(product);
+  })
+);
+
+productRouter.delete(
+  '/:id',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const product = await Product.findById(req.params.id);
+    if (product && product.seller === req.user._id) {
+      const deleteProduct = await product.remove();
+      res.send({ message: 'Product Deleted', product: deleteProduct });
+    } else {
+      res.status(404).send({ message: 'Product Not Found' });
+    }
   })
 );
 

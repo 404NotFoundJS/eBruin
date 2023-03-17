@@ -14,6 +14,7 @@ import { detailsProduct } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import Rating from '../components/Rating';
+import ProfileCard from '../components/ProfileCard';
 
 function ProductScreen() {
   const navigate = useNavigate();
@@ -41,11 +42,22 @@ function ProductScreen() {
       <Row>
         <Col md={6}>
           <img
-            className="img-large"
+            className="img-large product-img"
             src={`${product.productImage}`}
             alt={product.name}
           ></img>
         </Col>
+        <Col className="ms-auto">
+          {loading ? (
+            <LoadingBox />
+          ) : error ? (
+            <MessageBox variant="danger">{error}</MessageBox>
+          ) : (
+            <ProfileCard userDetails={product.seller} />
+          )}
+        </Col>
+      </Row>
+      <Row>
         <Col md={6}>
           <ListGroup variant="flush">
             <ListGroup.Item>

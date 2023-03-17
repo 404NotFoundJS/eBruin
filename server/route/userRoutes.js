@@ -27,7 +27,9 @@ userRouter.post(
         res.send({
           _id: user._id,
           name: user.name,
+          description: user.description,
           email: user.email,
+          phone: user.phone,
           reviews: user.reviews,
           isAdmin: user.isAdmin,
           token: generateToken(user),
@@ -51,7 +53,9 @@ userRouter.post(
     res.send({
       _id: user._id,
       name: user.name,
+      description: user.description,
       email: user.email,
+      phone: user.phone,
       reviews: [],
       isAdmin: user.isAdmin,
       token: generateToken(user),

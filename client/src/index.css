@@ -105,6 +105,26 @@ main {
   color: #ffff00;
 }
 
+.upload-icon {
+  color: #ffff00;
+}
+
+.card-img-top {
+  width: 270px;
+  height: 270px;
+  align-content: center;
+}
+
+.cart-img {
+  width: 70px;
+  height: 70px;
+}
+
+.product-img {
+  width: 500px;
+  height: 50fa-plus-square0px;
+}
+
 .container {
   max-width: 1200px;
 }

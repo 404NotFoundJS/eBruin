@@ -6,12 +6,14 @@ import {
   Select,
   Upload,
   Modal,
-  message
+  message,
 } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import axios from "axios";
+import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
+
 const { TextArea } = Input;
 
 const getBase64 = (file) =>
@@ -21,7 +23,6 @@ const getBase64 = (file) =>
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
   });
-
 
 const UploadScreen = () => {
   const userInfo = useSelector((state) => state.userSignin.userInfo);
@@ -43,7 +44,9 @@ const UploadScreen = () => {
     }
     setPreviewImage(file.url || file.preview);
     setPreviewOpen(true);
-    setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
+    setPreviewTitle(
+      file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
+    );
   };
 
   const handleSubmit = async (values) => {
@@ -64,10 +67,13 @@ const UploadScreen = () => {
       //   console.log("it is not a File")
       // }
 
-      const res = await axios.post("http://localhost:4000/api/products/upload-product", formData);
-      message.success('Product added successfully');
+      const res = await axios.post(
+        'http://localhost:4000/api/products/upload-product',
+        formData
+      );
       console.log(res.data); // handle success response
-      console.log("added successfully")
+      console.log('added successfully');
+      message.success('Product added successfully');
       //form.resetFields();
       //setFileName(null);
       setFileList([]);
@@ -98,6 +104,10 @@ const UploadScreen = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Selling</title>
+      </Helmet>
+      <h1>Selling</h1>
       <Form
         form={form}
         onFinish={handleSubmit}
@@ -115,11 +125,11 @@ const UploadScreen = () => {
       >
         <Form.Item
           label="Name"
-          name="name" 
+          name="name"
           rules={[
             {
               required: true,
-              message: "Please enter a product name"
+              message: 'Please enter a product name',
             },
           ]}
         >
@@ -132,7 +142,7 @@ const UploadScreen = () => {
           rules={[
             {
               required: true,
-              message: "Please select a product category"
+              message: 'Please select a product category',
             },
           ]}
         >
@@ -153,7 +163,7 @@ const UploadScreen = () => {
           rules={[
             {
               required: true,
-              message: "Please enter the product price"
+              message: 'Please enter the product price',
             },
           ]}
         >
@@ -166,7 +176,7 @@ const UploadScreen = () => {
           rules={[
             {
               required: true,
-              message: "Please enter the quantity avaiable for sale"
+              message: 'Please enter the quantity avaiable for sale',
             },
           ]}
         >
@@ -179,7 +189,7 @@ const UploadScreen = () => {
           rules={[
             {
               required: true,
-              message: "Please provide a description for the product"
+              message: 'Please provide a description for the product',
             },
           ]}
         >
@@ -188,15 +198,15 @@ const UploadScreen = () => {
 
         <Form.Item
           label="Upload"
-          name={"productImage"}
+          name={'productImage'}
           valuePropName="fileList"
           getValueFromEvent={(e) => {
             return e?.fileList;
-          }}          
+          }}
           rules={[
             {
               required: true,
-              message: "Please upload a product image"
+              message: 'Please upload a product image',
             },
           ]}
         >
@@ -222,24 +232,27 @@ const UploadScreen = () => {
           </Upload>
         </Form.Item>
 
-        <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
-            <img
-              alt="example"
-              style={{
-                width: '100%',
-              }}
-              src={previewImage}
-            />
+        <Modal
+          open={previewOpen}
+          title={previewTitle}
+          footer={null}
+          onCancel={handleCancel}
+        >
+          <img
+            alt="example"
+            style={{
+              width: '100%',
+            }}
+            src={previewImage}
+          />
         </Modal>
 
-        
         <Button type="primary" htmlType="submit">
           Add Product
         </Button>
-
       </Form>
     </>
   );
-}
+};
 
 export default UploadScreen;
