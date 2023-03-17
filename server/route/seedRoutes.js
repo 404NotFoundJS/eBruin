@@ -18,19 +18,19 @@ seedRouter.get('/', async (req, res) => {
 
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
-        callback(null, './client/public/uploads');
+        callback(null, '../client/public/uploads/');
     },
     filename: (req, file, callback) => {
-        callback(null, file.originalname);
+        callback(null, Date.now() + '-' + file.originalname);
     }
 })
 
 const upload = multer({ storage: storage });
 
-// seedRouter.post('/upload', upload.single('productImage'), (req, res) => {
-//     // Return the filename of the uploaded file to the frontend
-//     res.json({ filename: req.file.filename });
-//   });
+seedRouter.post('/upload', upload.single('productImage'), (req, res) => {
+    // Return the filename of the uploaded file to the frontend
+    res.json({ filename: req.file.filename });
+  });
 
 seedRouter.post(
     '/upload-product', 
@@ -48,7 +48,7 @@ seedRouter.post(
         rating: req.body.rating,
         numReviews: req.body.numReviews
         });
-        let product = await newProduct.save()
+        const product = await newProduct.save();
         res.send(product);
     })
 );

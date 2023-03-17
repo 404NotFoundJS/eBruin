@@ -27,7 +27,8 @@ const UploadScreen = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
-  const [fileName, setFileName] = useState('');
+  //const [fileName, setFileName] = useState('');
+  const [fileList, setFileList] = useState([]);
 
   // const onChangeFile = e => {
   //   setFileName(e.target.files[0]);
@@ -44,6 +45,8 @@ const UploadScreen = () => {
   };
 
   const handleSubmit = async (values) => {
+    console.log(values);
+    console.log(fileList[0].name);
     try {
       const formData = new FormData();
       formData.append('name', values.name);
@@ -52,22 +55,46 @@ const UploadScreen = () => {
       formData.append('price', values.price);
       formData.append('countInStock', values.countInStock);
       formData.append('description', values.description);
-      formData.append('productImage', fileName);
+      if (fileList[0] instanceof File) {
+        console.log("it is a File")
+      } else {
+        console.log("it is not a File")
+      }
+      formData.append('productImage', fileList[0]);
       formData.append('slug', '');
       formData.append('rating', '');
       formData.append('review', '');
-      const res = await axios.post("/api/upload-product", formData);
+      const res = await axios.post("http://localhost:4000/api/seed/upload-product", formData);
       console.log(res.data); // handle success response
+      console.log("added successfully")
       message.success('Product added successfully');
-      form.resetFields();
-      setFileName(null);
+      //form.resetFields();
+      //setFileName(null);
+      setFileList([]);
     } catch (error) {
       console.log(error.response.data); // handle error response
       message.error('Something went wrong');
     }
   };
 
-  const handleChange = ({ fileName: newFileName }) => setFileName(newFileName);
+  const beforeUpload = (file) => {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+      message.error('You can only upload JPG/PNG file!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error('Image must smaller than 2MB!');
+    }
+    if (isJpgOrPng && isLt2M) {
+      setFileList([...fileList, file]);
+    }
+    return !(isJpgOrPng && isLt2M);
+  };
+
+  // const handleChange = ({ fileList: newFileList }) => {
+  //   setFileList(newFileList);
+  // };
 
   return (
     <>
@@ -96,8 +123,7 @@ const UploadScreen = () => {
             },
           ]}
         >
-          <Input 
-          onChange/>
+          <Input />
         </Form.Item>
 
         <Form.Item 
@@ -175,7 +201,11 @@ const UploadScreen = () => {
 
         <Form.Item
           label="Upload"
-          name="Image"
+          name={"productImage"}
+          valuePropName="fileList"
+          getValueFromEvent={(e) => {
+            return e?.fileList;
+          }}          
           rules={[
             {
               required: true,
@@ -184,11 +214,14 @@ const UploadScreen = () => {
           ]}
         >
           <Upload
+            maxCount={1}
             name="productImage"
             accept="image/*"
             listType="picture-card"
+            beforeUpload={beforeUpload}
             onPreview={handlePreview}
-            onChange={handleChange}>
+            // onChange={handleChange}
+          >
             <div>
               <PlusOutlined />
               <div

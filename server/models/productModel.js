@@ -22,6 +22,8 @@ const productSchema = new mongoose.Schema(
 productSchema.pre('validate', function (next) {
     if (this.name) {
       this.slug = slugify(this.name, { lower: true, strict: true });
+      this.rating = 0;
+      this.numReviews = 0;
     }
     next();
   });
