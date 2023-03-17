@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { CART_EMPTY } from '../constants/cartConstants';
 import {
   ORDER_CREATE_FAIL,
@@ -7,21 +8,42 @@ import {
   ORDER_DETAILS_FAIL,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
+  ORDER_MINE_LIST_FAIL,
+  ORDER_MINE_LIST_REQUEST,
+  ORDER_MINE_LIST_SUCCESS,
 } from '../constants/orderConstants';
-import { toast } from 'react-toastify';
 
-export const createOrder = (order) => async (dispatch, getState) => {
-  dispatch({ type: ORDER_CREATE_REQUEST, payload: order });
+export const createOrder = (cartItems) => async (dispatch, getState) => {
+  dispatch({ type: ORDER_CREATE_REQUEST, payload: cartItems });
   try {
     const {
       userSignin: { userInfo },
     } = getState();
-    const { data } = await axios.post('/api/orders', order, {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    });
-    dispatch({ type: ORDER_CREATE_SUCCESS, payload: data.order });
+    const orders = [];
+    for (const item of cartItems) {
+      const { data } = await axios.post(
+        '/api/orders',
+        {
+          seller: item.seller,
+          orderItem: { quantity: item.qty, product: item.product },
+          totalPrice: item.qty * item.price,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      );
+      orders.push(data.order);
+      const { product } = await axios.put(
+        `/api/products/${item.product}/ordered`,
+        {
+          quantity: item.qty,
+          buyer: userInfo._id,
+        }
+      );
+    }
+    dispatch({ type: ORDER_CREATE_SUCCESS, payload: { orders, cartItems } });
     dispatch({ type: CART_EMPTY });
     localStorage.removeItem('cartItems');
   } catch (error) {
@@ -52,5 +74,26 @@ export const detailsOrder = (orderId) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: ORDER_DETAILS_FAIL, payload: message });
+  }
+};
+
+export const listOrderMine = () => async (dispatch, getState) => {
+  dispatch({ type: ORDER_MINE_LIST_REQUEST });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await axios.get('/api/orders/mine', {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+    dispatch({ type: ORDER_MINE_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: ORDER_MINE_LIST_FAIL, payload: message });
   }
 };

@@ -1,80 +1,77 @@
-import React, { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React, { useEffect } from 'react';
+import { Col, ListGroup, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createOrder } from '../actions/orderActions';
-import CheckoutSteps from '../components/CheckoutSteps';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
 
 export default function OrderConfirmScreen() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.userSignin.userInfo);
-  const orderInfo = useSelector((state) => state.cart.orderInfo);
-  const [fullName, setFullName] = useState(orderInfo.fullName || '');
-  const [phoneNumber, setPhoneNumber] = useState(orderInfo.phoneNumber || '');
-  const [contactEmail, setContactEmail] = useState(
-    orderInfo.contactEmail || ''
-  );
-  const [zipCode, setZipCode] = useState(orderInfo.zipCode || '');
-  useEffect(() => {
-    if (!userInfo) {
-      navigate('/signin?redirect=/OrderInfo');
-    }
-  }, [userInfo, navigate]);
-  const submitHandler = (e) => {
-    e.preventDefault();
-    navigate('/placeorder');
-  };
-  return (
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { loading, error, success, orders, cartItems } = orderCreate;
+
+  return loading ? (
+    <LoadingBox></LoadingBox>
+  ) : error ? (
+    <MessageBox variant="danger">{error}</MessageBox>
+  ) : (
     <div>
       <Helmet>
         <title>Order Information</title>
       </Helmet>
-      <CheckoutSteps step1 step2></CheckoutSteps>
-      <div className="container small-container">
-        <h1 className="my-3">Order Information</h1>
-        <Form onSubmit={submitHandler}>
-          <Form.Group className="mb-3" controlId="fullName">
-            <Form.Label>Full Name</Form.Label>
-            <Form.Control
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="phoneNumber">
-            <Form.Label>Phone Number</Form.Label>
-            <Form.Control
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="contactEmail">
-            <Form.Label>Contact Email</Form.Label>
-            <Form.Control
-              value={contactEmail}
-              onChange={(e) => setContactEmail(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="zipCode">
-            <Form.Label>Zip Code</Form.Label>
-            <Form.Control
-              value={zipCode}
-              onChange={(e) => setZipCode(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <div className="mb-3">
-            <Button variant="primary" type="submit">
-              Confirm Order
-            </Button>
-          </div>
-        </Form>
-      </div>
+      {orders && (
+        <ListGroup>
+          <ListGroup.Item>
+            <Row className="align-items-center">
+              <Col md={2}>
+                <h2>Product</h2>
+              </Col>
+              <Col md={3}>
+                <h2>Quantity</h2>
+              </Col>
+              <Col md={3}>
+                <h2>Price</h2>
+              </Col>
+              <Col md={2}>
+                <h2>Subtotal</h2>
+              </Col>
+              <Col md={2}>
+                <h2>Contact Seller</h2>
+              </Col>
+            </Row>
+          </ListGroup.Item>
+          {cartItems.map((item) => (
+            <ListGroup.Item key={item._id}>
+              <Row className="align-items-center">
+                <Col md={2}>
+                  <img
+                    src={`${item.image}`}
+                    alt={item.name}
+                    className="img-fluid rounded img-thumbnail cart-img"
+                  ></img>{' '}
+                  <div>{item.name}</div>
+                </Col>
+                <Col md={3}>
+                  <span>{item.qty}</span>{' '}
+                </Col>
+                <Col md={3}>${item.price}</Col>
+                <Col md={2}>${item.qty * item.price}</Col>
+                <Col md={2}>
+                  <a href={`mailto:${item.seller.email}`}>
+                    {item.seller.email}
+                  </a>
+                </Col>
+              </Row>
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
+      )}
+      <Link to="/" className="btn btn-primary">
+        Continue Shopping
+      </Link>
     </div>
   );
 }

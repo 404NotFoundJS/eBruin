@@ -29,6 +29,7 @@ productRouter.get(
     try {
       const count = await Product.count(searchFilter);
       const products = await Product.find(searchFilter)
+        .populate('buyer', 'name email')
         .sort({ updatedAt: -1 })
         .skip(pageSize * (page - 1))
         .limit(pageSize);
@@ -105,11 +106,44 @@ productRouter.post(
   })
 );
 
-function extractPublicId(url) {
-  const startIndex = url.indexOf('products/');
-  const endIndex = url.lastIndexOf('.');
-  return url.substring(startIndex, endIndex);
-}
+productRouter.put(
+  '/:id',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+    if (product) {
+      product.name = req.body.name;
+      product.price = req.body.price;
+      product.image = req.body.image;
+      product.category = req.body.category;
+      product.brand = req.body.brand;
+      product.countInStock = req.body.countInStock;
+      product.description = req.body.description;
+      const updatedProduct = await product.save();
+      res.send({ message: 'Product Updated', product: updatedProduct });
+    } else {
+      res.status(404).send({ message: 'Product Not Found' });
+    }
+  })
+);
+
+productRouter.put(
+  '/:id/ordered',
+  expressAsyncHandler(async (req, res) => {
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+    if (product) {
+      product.countInStock = product.countInStock - req.body.quantity;
+      product.status = product.countInStock > 0 ? 'available' : 'ordered';
+      product.buyer = req.body.buyer;
+      const updatedProduct = await product.save();
+      res.send({ message: 'Product Updated', product: updatedProduct });
+    } else {
+      res.status(404).send({ message: 'Product Not Found' });
+    }
+  })
+);
 
 productRouter.delete(
   '/:id',
@@ -127,3 +161,9 @@ productRouter.delete(
 );
 
 export default productRouter;
+
+function extractPublicId(url) {
+  const startIndex = url.indexOf('products/');
+  const endIndex = url.lastIndexOf('.');
+  return url.substring(startIndex, endIndex);
+}

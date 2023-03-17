@@ -12,6 +12,7 @@ import { getUserDetails } from '../actions/userActions';
 import ListingTable from '../components/ListingTable';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import OrderHistory from '../components/OrderHistory';
 import ProfileCard from '../components/ProfileCard';
 
 export default function ProfileScreen() {
@@ -77,10 +78,10 @@ export default function ProfileScreen() {
                       pageNumber={pageNumber}
                       setPageNumber={setPageNumber}
                       totalPages={pages}
-                    ></ListingTable>
+                    />
                   </Tab>
                   <Tab eventKey="orderHistory" title="Order History">
-                    <Row>userInfo Order History</Row>
+                    <OrderHistory></OrderHistory>
                   </Tab>
                   <Tab eventKey="reviews" title="Reviews">
                     <Row>userInfo Reviews</Row>

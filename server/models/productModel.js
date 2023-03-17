@@ -16,6 +16,12 @@ const productSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
+    buyer: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: false,
+      default: null,
+    },
   },
   {
     timestamps: true,
@@ -23,11 +29,11 @@ const productSchema = new mongoose.Schema(
 );
 
 productSchema.pre('validate', function (next) {
-    if (this.name) {
-      this.slug = slugify(this.name, { lower: true, strict: true });
-    }
-    next();
-  });
+  if (this.name) {
+    this.slug = slugify(this.name, { lower: true, strict: true });
+  }
+  next();
+});
 
 const Product = mongoose.model('Product', productSchema);
 export default Product;

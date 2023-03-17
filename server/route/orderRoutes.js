@@ -9,12 +9,11 @@ orderRouter.post(
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const newOrder = new Order({
-      orderItems: req.body.orderItems.map((x) => ({ ...x, product: x._id })),
-      orderInfo: req.body.orderInfo,
-      itemsPrice: req.body.itemsPrice,
-      taxPrice: req.body.taxPrice,
+      buyer: req.user._id,
+      seller: req.body.seller,
+      orderItem: req.body.orderItem,
       totalPrice: req.body.totalPrice,
-      user: req.user._id,
+      orderComplete: false,
     });
 
     const order = await newOrder.save();
@@ -26,7 +25,15 @@ orderRouter.get(
   '/mine',
   isAuth,
   expressAsyncHandler(async (req, res) => {
-    const orders = await Order.find({ user: req.user._id });
+    const orders = await Order.find({ buyer: req.user._id })
+      .populate('seller', 'name')
+      .populate({
+        path: 'orderItem',
+        populate: {
+          path: 'product',
+          select: 'name',
+        },
+      });
     res.send(orders);
   })
 );

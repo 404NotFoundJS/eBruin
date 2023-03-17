@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/esm/Col';
@@ -7,12 +8,15 @@ import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { addToCart, removeFromCart } from '../actions/cartActions';
+import { createOrder } from '../actions/orderActions';
 import MessageBox from '../components/MessageBox';
 
 export default function CartScreen() {
   const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { loading, error, success, order } = orderCreate;
 
   const updateCartHandler = async (item, qty) => {
     dispatch(addToCart(item._id, qty));
@@ -23,8 +27,14 @@ export default function CartScreen() {
   };
 
   const checkoutHandler = () => {
-    navigate('/signin?redirect=/OrderInfo');
+    dispatch(createOrder(cartItems));
   };
+
+  useEffect(() => {
+    if (success) {
+      navigate('/OrderInfo');
+    }
+  }, [success, navigate]);
 
   return (
     <div>
@@ -96,7 +106,7 @@ export default function CartScreen() {
                       onClick={checkoutHandler}
                       disabled={cartItems.length === 0}
                     >
-                      Checkout
+                      Confirm Order
                     </Button>
                   </div>
                 </ListGroup.Item>
