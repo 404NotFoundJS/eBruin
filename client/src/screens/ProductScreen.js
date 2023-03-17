@@ -72,12 +72,7 @@ function ProductScreen() {
               </Helmet>
               <h1>{product.name}</h1>
             </ListGroup.Item>
-            <ListGroup.Item>
-              <Rating
-                rating={product.rating}
-                numReviews={product.numReviews}
-              ></Rating>
-            </ListGroup.Item>
+
             <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
             <ListGroup.Item>
               Description:
@@ -110,7 +105,7 @@ function ProductScreen() {
                     </div>
                   </ListGroup.Item>
                 )}
-                {(product.seller === userInfo._id) && (
+                {product.seller === userInfo._id && (
                   <ListGroup.Item>
                     <div className="d-grid">
                       <Button onClick={deleteHandler} variant="primary">

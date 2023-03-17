@@ -3,7 +3,6 @@ import Card from 'react-bootstrap/Card';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addToCart } from '../actions/cartActions';
-import Rating from './Rating';
 
 function Product(props) {
   const { product } = props;
@@ -26,7 +25,7 @@ function Product(props) {
         <Link to={`/product/${product._id}`}>
           <Card.Title>{product.name}</Card.Title>
         </Link>
-        <Rating rating={product.rating} numReviews={product.numReviews} />
+
         <Card.Text>${product.price}</Card.Text>
         {product.countInStock === 0 ? (
           <Button variant="danger" disabled>
