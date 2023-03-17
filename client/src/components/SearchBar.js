@@ -19,7 +19,11 @@ export default function SearchBar() {
         aria-label="Search"
         onChange={(e) => setKeyword(e.target.value)}
       />
-      <Button variant="outline-success" onClick={searchHandler}>
+      <Button
+        className="warning"
+        variant="outline-warning"
+        onClick={searchHandler}
+      >
         Search
       </Button>
     </Form>
