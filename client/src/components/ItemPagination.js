@@ -12,12 +12,14 @@ function itemPagination({ page, pages, keyword = '' }) {
 
   return (
     <Pagination>
-      <Pagination.First href={constructUrl({ page: 1 })} />
-      {page !== 1 && (
-        <Pagination.Prev href={constructUrl({ page: page - 1 })}>
-          {page - 1}
-        </Pagination.Prev>
-      )}
+      <Pagination.First
+        href={constructUrl({ page: 1 })}
+        disabled={page === 1}
+      />
+      <Pagination.Prev
+        href={constructUrl({ page: page - 1 })}
+        disabled={page === 1}
+      />
 
       {page !== 1 && (
         <Pagination.Item href={constructUrl({ page: page - 1 })}>
@@ -31,12 +33,14 @@ function itemPagination({ page, pages, keyword = '' }) {
         </Pagination.Item>
       )}
 
-      {page !== pages && (
-        <Pagination.Next href={constructUrl({ page: page + 1 })}>
-          {page + 1}
-        </Pagination.Next>
-      )}
-      <Pagination.Last href={constructUrl({ page: pages })} />
+      <Pagination.Next
+        href={constructUrl({ page: page + 1 })}
+        disabled={page === pages}
+      />
+      <Pagination.Last
+        href={constructUrl({ page: pages })}
+        disabled={page === pages}
+      />
     </Pagination>
   );
 }

@@ -6,10 +6,10 @@ import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { listProducts } from '../actions/productActions';
+import ItemPagination from '../components/ItemPagination';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import Product from '../components/Product';
-import ItemPagination from '../components/ItemPagination';
 
 function SearchScreen() {
   const dispatch = useDispatch();
@@ -36,36 +36,46 @@ function SearchScreen() {
         ) : (
           <Container fluid>
             {noMatch ? (
-              <h2>No match found</h2>
+              <h2>No Listing Found</h2>
             ) : (
-              products.map((product) => (
-                <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
-                  <Product product={product}></Product>
-                </Col>
-              ))
+              <>
+                <Row>
+                  {products.map((product) => (
+                    <Col
+                      key={product.slug}
+                      sm={6}
+                      md={4}
+                      lg={3}
+                      className="mb-3"
+                    >
+                      <Product product={product}></Product>
+                    </Col>
+                  ))}
+                </Row>
+                <br />
+                <Container style={{ position: 'absolute', bottom: 20 }}>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <ItemPagination
+                      page={parseInt(pageNumber)}
+                      pages={parseInt(pages)}
+                      keyword={''}
+                    />
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    {loading ? (
+                      <LoadingBox />
+                    ) : error ? (
+                      <MessageBox variant="danger">{error}</MessageBox>
+                    ) : (
+                      <h6>{products.length} Listings Found</h6>
+                    )}
+                  </div>
+                </Container>
+              </>
             )}
           </Container>
         )}
       </div>
-      <br />
-      <Container style={{ position: 'absolute', bottom: 20 }}>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <ItemPagination
-            page={parseInt(pageNumber)}
-            pages={parseInt(pages)}
-            keyword={''}
-          />
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          {loading ? (
-            <LoadingBox />
-          ) : error ? (
-            <MessageBox variant="danger">{error}</MessageBox>
-          ) : (
-            <h6>{products.length} Listings Found</h6>
-          )}
-        </div>
-      </Container>
     </div>
   );
 }
