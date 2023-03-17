@@ -18,10 +18,9 @@ import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import ProductScreen from './screens/ProductScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import SearchScreen from './screens/SearchScreen';
-import SigninScreen from "./screens/SigninScreen";
-import SignupScreen from "./screens/SignupScreen";
+import SigninScreen from './screens/SigninScreen';
+import SignupScreen from './screens/SignupScreen';
 import UploadScreen from './screens/UploadScreen';
-
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -51,6 +50,9 @@ function App() {
                       {cart.cartItems.reduce((a, c) => a + c.qty, 0)}
                     </Badge>
                   )}
+                </Link>
+                <Link to="/upload" className="nav-link">
+                  <i className="fas fa-plus-circle fa-lg upload-icon"></i>
                 </Link>
                 {userInfo ? (
                   <NavDropdown

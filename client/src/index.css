@@ -105,6 +105,10 @@ main {
   color: #ffff00;
 }
 
+.upload-icon {
+  color: #ffff00;
+}
+
 .card-img-top {
   width: 270px;
   height: 270px;
@@ -118,7 +122,7 @@ main {
 
 .product-img {
   width: 500px;
-  height: 500px;
+  height: 50fa-plus-square0px;
 }
 
 .container {
