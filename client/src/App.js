@@ -11,7 +11,6 @@ import SearchBar from './components/SearchBar';
 import CartScreen from './screens/CartScreen';
 import HomeScreen from './screens/HomeScreen';
 import OrderConfirmScreen from './screens/OrderConfirmScreen';
-import OrderConfirmScreen from './screens/OrderConfirmScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import OrderScreen from './screens/OrderScreen';
 import PendingScreen from './screens/PendingScreen';
