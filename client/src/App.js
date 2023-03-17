@@ -67,12 +67,6 @@ function App() {
                     <NavDropdown.Item href="editProfile">
                       User Profile Update
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="/pending">
-                      Pending Order
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="/orderhistory">
-                      Order History
-                    </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item
                       href="/"
