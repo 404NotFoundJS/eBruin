@@ -105,12 +105,19 @@ productRouter.post(
   })
 );
 
+function extractPublicId(url) {
+  const startIndex = url.indexOf('products/');
+  const endIndex = url.lastIndexOf('.');
+  return url.substring(startIndex, endIndex);
+}
+
 productRouter.delete(
   '/:id',
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (product && product.seller === req.user._id) {
+      await cloudinary.uploader.destroy(extractPublicId(product.productImage));
       const deleteProduct = await product.remove();
       res.send({ message: 'Product Deleted', product: deleteProduct });
     } else {

@@ -10,11 +10,11 @@ import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { addToCart } from '../actions/cartActions';
-import { detailsProduct } from '../actions/productActions';
+import { deleteProduct, detailsProduct } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import Rating from '../components/Rating';
 import ProfileCard from '../components/ProfileCard';
+import Rating from '../components/Rating';
 
 function ProductScreen() {
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ function ProductScreen() {
   const params = useParams();
   const { id: productId } = params;
   const productDetails = useSelector((state) => state.productDetails);
+  const userInfo = useSelector((state) => state.userSignin.userInfo);
   const { loading, error, product } = productDetails;
 
   useEffect(() => {
@@ -31,6 +32,11 @@ function ProductScreen() {
   const addToCartHandler = async () => {
     dispatch(addToCart(productId, 1));
     navigate('/cart');
+  };
+
+  const deleteHandler = async () => {
+    dispatch(deleteProduct(productId));
+    navigate('/myProfile');
   };
 
   return loading ? (
@@ -100,6 +106,15 @@ function ProductScreen() {
                     <div className="d-grid">
                       <Button onClick={addToCartHandler} variant="primary">
                         Add to Cart
+                      </Button>
+                    </div>
+                  </ListGroup.Item>
+                )}
+                {(product.seller === userInfo._id) && (
+                  <ListGroup.Item>
+                    <div className="d-grid">
+                      <Button onClick={deleteHandler} variant="primary">
+                        Delete product
                       </Button>
                     </div>
                   </ListGroup.Item>
