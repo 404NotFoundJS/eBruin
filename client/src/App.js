@@ -21,6 +21,7 @@ import SearchScreen from './screens/SearchScreen';
 import SigninScreen from './screens/SigninScreen';
 import SignupScreen from './screens/SignupScreen';
 import UploadScreen from './screens/UploadScreen';
+import EditProfileScreen from './screens/EditProfileScreen';
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -111,6 +112,7 @@ function App() {
               <Route path="/orders/:id" element={<OrderScreen />} />
               <Route path="/pending" element={<PendingScreen />} />
               <Route path="/orderhistory" element={<OrderHistoryScreen />} />
+              <Route path="/editProfile" element={<EditProfileScreen />} />
             </Routes>
           </Container>
         </main>
