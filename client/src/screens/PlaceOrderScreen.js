@@ -32,31 +32,6 @@ export default function PlaceOrderScreen() {
   cart.totalPrice = cart.itemsPrice + cart.taxPrice;
   const placeOrderHandler = async () => {
     dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
-    // try {
-    //   dispatch({ type: 'CREATE_REQUEST' });
-    //   const { data } = await axios.post(
-    //     '/api/orders',
-    //     {
-    //       orderItems: cartItems,
-    //       orderInfo: cart.orderInfo,
-    //       itemsPrice: cart.itemsPrice,
-    //       taxPrice: cart.taxPrice,
-    //       totalPrice: cart.totalPrice,
-    //     },
-    //     {
-    //       headers: {
-    //         authorization: `Bearer ${userInfo.token}`,
-    //       },
-    //     }
-    //   );
-    //   dispatch({ type: CART_EMPTY });
-    //   dispatch({ type: 'CREATE_SUCCESS' });
-    //   localStorage.removeItem('cartItems');
-    //   navigate(`/orders/${data.order._id}`);
-    // } catch (err) {
-    //   dispatch({ type: 'CREATE_FAIL' });
-    //   toast.error(getError(err));
-    // }
   };
   if (success) {
     navigate(`/orders/${order._id}`);

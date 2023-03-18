@@ -28,7 +28,7 @@ export default function SignupScreen() {
     if (password !== confirmPassword) {
       toast.error('Passwords do not match');
     } else {
-      dispatch(signUp(name, email, phone, password));
+      dispatch(signUp(name, email, phone, password, description));
     }
   };
   useEffect(() => {

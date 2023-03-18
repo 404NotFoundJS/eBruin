@@ -12,7 +12,7 @@ To get started with the development environment for eBruin, follow these steps:
 
 ##Clone the repository from https://github.com/404NotFoundJS/eBruin.git
 Navigate to the server directory and run npm install
-Navigate to the client directory and run npm install --legacy-peer-deps
+Navigate to the client directory and run npm install
 Return to the top-level eBruin directory and run npm install
 
 ## Server-Client Model and MERN Stack

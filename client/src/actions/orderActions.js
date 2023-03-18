@@ -14,7 +14,6 @@ import {
   ORDER_COMPLETE_REQUEST,
   ORDER_COMPLETE_SUCCESS,
   ORDER_COMPLETE_FAIL,
-  ORDER_COMPLETE_RESET,
 } from '../constants/orderConstants';
 
 export const createOrder = (cartItems) => async (dispatch, getState) => {
@@ -39,13 +38,10 @@ export const createOrder = (cartItems) => async (dispatch, getState) => {
         }
       );
       orders.push(data.order);
-      const { product } = await axios.put(
-        `/api/products/${item.product}/ordered`,
-        {
-          quantity: item.qty,
-          buyer: userInfo._id,
-        }
-      );
+      await axios.put(`/api/products/${item.product}/ordered`, {
+        quantity: item.qty,
+        buyer: userInfo._id,
+      });
     }
     dispatch({ type: ORDER_CREATE_SUCCESS, payload: { orders, cartItems } });
     dispatch({ type: CART_EMPTY });

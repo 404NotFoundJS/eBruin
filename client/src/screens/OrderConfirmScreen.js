@@ -1,17 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Col, ListGroup, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { createOrder } from '../actions/orderActions';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 
 export default function OrderConfirmScreen() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const orderCreate = useSelector((state) => state.orderCreate);
-  const { loading, error, success, orders, cartItems } = orderCreate;
+  const { loading, error, orders, cartItems } = orderCreate;
 
   return loading ? (
     <LoadingBox></LoadingBox>

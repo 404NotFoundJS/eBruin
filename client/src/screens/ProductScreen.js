@@ -21,7 +21,7 @@ function ProductScreen() {
   const params = useParams();
   const { id: productId } = params;
   const productDetails = useSelector((state) => state.productDetails);
-  const userInfo = useSelector((state) => state.userSignin.userInfo);
+  const { userInfo } = useSelector((state) => state.userSignin);
   const { loading, error, product } = productDetails;
 
   useEffect(() => {
@@ -95,14 +95,22 @@ function ProductScreen() {
                     )}
                   </Row>
                 </ListGroupItem>
-                {product.countInStock > 0 && (
-                  <ListGroup.Item>
-                    <div className="d-grid">
-                      <Button onClick={addToCartHandler} variant="primary">
-                        Add to Cart
-                      </Button>
-                    </div>
-                  </ListGroup.Item>
+                {product.seller._id === userInfo._id ? (
+                  <ListGroupItem>
+                    <Button onClick={deleteHandler} variant="danger">
+                      Remove Listing
+                    </Button>
+                  </ListGroupItem>
+                ) : (
+                  product.countInStock > 0 && (
+                    <ListGroup.Item>
+                      <div className="d-grid">
+                        <Button onClick={addToCartHandler} variant="primary">
+                          Add to Cart
+                        </Button>
+                      </div>
+                    </ListGroup.Item>
+                  )
                 )}
               </ListGroup>
             </Card.Body>
