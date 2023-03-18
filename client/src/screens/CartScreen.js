@@ -17,7 +17,7 @@ export default function CartScreen() {
   const userInfo = useSelector((state) => state.userSignin.userInfo);
   const dispatch = useDispatch();
   const orderCreate = useSelector((state) => state.orderCreate);
-  const { loading, error, success, order } = orderCreate;
+  const { loading, error, success } = orderCreate;
 
   const updateCartHandler = async (item, qty) => {
     dispatch(addToCart(item._id, qty));
@@ -124,6 +124,8 @@ export default function CartScreen() {
               </ListGroup>
             </Card.Body>
           </Card>
+          {loading && <MessageBox variant="info">Loading...</MessageBox>}
+          {error && <MessageBox variant="danger">{error}</MessageBox>}
         </Col>
       </Row>
     </div>

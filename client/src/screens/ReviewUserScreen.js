@@ -15,7 +15,7 @@ export default function ReviewUserScreen() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reviewCreate = useSelector((state) => state.reviewCreate);
-  const { loading, error, success, review } = reviewCreate;
+  const { loading, error, success } = reviewCreate;
   const { userInfo } = useSelector((state) => state.userSignin);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
