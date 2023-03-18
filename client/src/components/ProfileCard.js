@@ -1,14 +1,18 @@
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { Card, ListGroup } from 'react-bootstrap';
-import Rating from './Rating';
+import { useSelector } from 'react-redux';
 
 export default function ProfileCard({ userDetails }) {
-  const [avgRating, setAvgRating] = useState();
-  const [numReviews, setNumReviews] = useState();
-  const { name, description, reviews, email, phone } = userDetails;
+  const [avgRating, setAvgRating] = useState(0);
+  const [numReviews, setNumReviews] = useState(0);
+  const { name, description, email, phone } = userDetails;
+  const { reviews } = useSelector((state) => state.reviewList);
   useEffect(() => {
     if (reviews) {
       setAvgRating(reviews.reduce((a, c) => a + c.rating, 0) / reviews.length);
+      setNumReviews(reviews.length);
     } else {
       setAvgRating(0);
       setNumReviews(0);
@@ -23,7 +27,10 @@ export default function ProfileCard({ userDetails }) {
       </Card.Body>
       <ListGroup className="list-group-flush">
         <ListGroup.Item>
-          <Rating rating={avgRating} numReviews={numReviews}></Rating>
+          <Typography component="legend">
+            Based on {numReviews} reviews:{' '}
+          </Typography>
+          <Rating name="read-only" precision={0.1} value={avgRating} readOnly />
         </ListGroup.Item>
         <ListGroup.Item>
           <a href={`mailto:${email}`}>{email}</a>

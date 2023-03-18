@@ -2,6 +2,7 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 // import Pagination from '@mui/material/Pagination';
 import Pagination from 'react-bootstrap/Pagination';
+import { Link } from 'react-router-dom';
 
 export default function ListingTable({
   listings,
@@ -27,7 +28,13 @@ export default function ListingTable({
         <tbody>
           {listings.map((listing) => (
             <tr key={listing._id}>
-              <td>{listing.name}</td>
+              <td>
+                {listing.status === 'available' ? (
+                  <Link to={`/product/${listing._id}`}>{listing.name}</Link>
+                ) : (
+                  listing.name
+                )}
+              </td>
               <td>${listing.price}</td>
               <td>{listing.createdAt.substring(0, 10)}</td>
               <td>{listing.countInStock}</td>
